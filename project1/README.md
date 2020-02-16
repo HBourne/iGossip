@@ -10,6 +10,8 @@ This README is for instructing how to start the app on a Linux/MacOS server.
 - Python (>= 3.6.0)
 - npm
 - Clone of the repo
+- MySQL
+- MongoDB
 
 ### Step 1 - Install Django
 Make sure you are using ***Python 3.6.0 or newer versions*** since the version of Django used in this repo is 3.0, which does not support previous versions according to the official document.
