@@ -13,6 +13,7 @@ Project page: https://wiki.illinois.edu/wiki/display/CS411AASP20/%5BDataBeasts%5
   - content component
     - top courses list
     - course page
+    - search result
 - account page
   - favorite courses
   - my comments
