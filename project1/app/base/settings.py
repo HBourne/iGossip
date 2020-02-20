@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apiTest',
     'frontend',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -80,10 +81,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/Users/hankren/RQH/git/CS411/project1/app/base/mysql.conf',
+            'read_default_file': '/Users/gauravsharma/CS411/mysql.conf',
         },
     }
 }
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+# }
 
 
 # Password validation
