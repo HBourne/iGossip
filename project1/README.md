@@ -19,9 +19,10 @@ Make sure you are using ***Python 3.6.0 or newer versions*** since the version o
 $ python -m pip install Django
 ```
 
-### Step 2 - Install Django Rest-framework
+### Step 2 - Install Django Rest-framework & filter
 ```
 $ pip install djangorestframework
+$ pip install django-filter
 ```
 
 ### Step 3 - Install MySQL Client
@@ -78,9 +79,16 @@ After running the command above, you should be able to see an API interface thro
 ### Step 6 - Install Frontend Packages
 ```
 $ npm i webpack webpack-cli
-$ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react
+$ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties
 $ npm i react react-dom
 $ npm i less less-loader css-loader style-loader
+$ npm i antd
+```
+If you have any problem installing `antd` on MacOS, please refer to https://github.com/schnerd/d3-scale-cluster/issues/7.
+
+Also, ensure you have `yarn` since we have to install ant design icons through `yarn`:
+```
+$ yarn add @ant-design/icons@4.0.0
 ```
 Then, run the frontend:
 ```
