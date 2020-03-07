@@ -80,6 +80,7 @@ After running the command above, you should be able to see an API interface thro
 $ npm i webpack webpack-cli
 $ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react
 $ npm i react react-dom
+$ npm i less less-loader css-loader style-loader
 ```
 Then, run the frontend:
 ```
