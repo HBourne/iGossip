@@ -151,7 +151,7 @@ export class Professor extends Component {
                     </div>
                     <List
                         itemLayout="horizontal"
-                        dataSource={this.info.journal}
+                        dataSource={this.mongo.journal}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta

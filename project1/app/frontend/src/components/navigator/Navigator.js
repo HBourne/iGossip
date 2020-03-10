@@ -28,11 +28,12 @@ export class Navigator extends Component {
     render() {
         return (
             <div className='navigator'>
-                <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal" theme='dark'>
+                <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal" theme='light'>
                     <Menu.Item id='logo' disabled='true'>
                         iGossip
                     </Menu.Item>
 
+                    {/* TODO: Add login related states to modify the logo & corresponding text for login/logout */}
                     <Menu.Item key="login">
                         <LoginOutlined />
                         Login

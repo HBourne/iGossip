@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import './sidebar.less'
+import { Input, List } from 'antd';
+import 'antd/dist/antd.css';
 
 // Sidebar:
 // - Provide search for courses/professors
 // - List all the courses returned by the search clause
+
+const { Search } = Input;
 
 export class Sidebar extends Component {
     constructor(props) {
@@ -12,12 +16,41 @@ export class Sidebar extends Component {
         this.state = {
 
         };
+
+        this.mongo = [
+            {
+                id: 1,
+                title: 'CS411 - Abdu'
+            }, {
+                id: 2,
+                title: 'CS422 - Rosu'
+            }
+        ]
     }
 
     render() {
         return (
-            <div>
-                This is where sidebar should be implemented!
+            <div className='sidebar'>
+                <div className='search'>
+                    <Search
+                        placeholder="Search keywords for courses"
+                        onSearch={value => console.log(value)}
+                    />
+                </div>
+
+                <div className='result'>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={this.mongo}
+                        renderItem={item => (
+                            <List.Item onClick={() => console.log(item.id)}>
+                                <List.Item.Meta
+                                    title={<a>{item.title}</a>}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </div>
             </div>
         )
     }

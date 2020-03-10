@@ -17,29 +17,25 @@ export class Home extends Component {
     }
 
     render() {
-        // TODO: Implement the state change to allow page content update
+        // TODO: Implement the state change to allow viewing different content on click different links
         return (
             <div className='home'>
                 <div className='up'>
-                    <div className='navigator'>
-                        <Navigator></Navigator>
-                    </div>
+                    <Navigator></Navigator>
                 </div>
 
                 <div className='bottom'>
                     <div className='left'>
-                        <div className='sidebar'>
-                            <Sidebar></Sidebar>
-                        </div>
+                        <Sidebar></Sidebar>
                     </div>
 
                     <div className='right'>
                         <div className='content'>
                             {/* The content should be determined by the state and choose from Professor, Course, Profile and DefaultContent */}
 
-                            {/* <Professor></Professor> */}
+                            <Professor></Professor>
                             {/* <Course></Course> */}
-                            <Profile></Profile>
+                            {/* <Profile></Profile> */}
                             {/* <DefaultContent></DefaultContent> */}
                         </div>
                     </div>
