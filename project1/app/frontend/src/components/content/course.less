@@ -1,3 +1,41 @@
 .course {
     display: flex;
+    overflow: scroll;
+    flex-direction: column;
+    width: 100%;
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 20pt;
+        padding-right: 4%;
+    }
+
+    .description {
+        font-size: 12pt;
+        padding: 5pt;
+    }
+
+    .relevant {
+        font-size: 12pt;
+        padding: 5pt;
+    }
+
+    .body {
+        display: flex;
+        flex-direction: row;
+        font-size: 12pt;
+        padding: 5pt;
+
+        .comment {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+        }
+
+        .review {
+            width: 30%;
+        }
+    }
 }

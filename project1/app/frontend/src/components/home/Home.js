@@ -36,10 +36,10 @@ export class Home extends Component {
                         <div className='content'>
                             {/* The content should be determined by the state and choose from Professor, Course, Profile and DefaultContent */}
 
-                            {/* <Professor></Professor>
+                            {/* <Professor></Professor> */}
                             <Course></Course>
-                            <Profile></Profile> */}
-                            <DefaultContent></DefaultContent>
+                            {/* <Profile></Profile> */}
+                            {/* <DefaultContent></DefaultContent> */}
                         </div>
                     </div>
                 </div>

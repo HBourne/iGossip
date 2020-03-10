@@ -23,7 +23,32 @@ export class Course extends Component {
     render() {
         return (
             <div className='course'>
-                This is where course pages should be implemented!
+                <div className='title'>
+                    <div className='name'>
+                        Course Code - Course Name
+                    </div>
+                    <div className='credit'>
+                        Available Credits: 3 / 4
+                    </div>
+                </div>
+
+                <div className='description'>
+                    Course Description:
+                </div>
+
+                <div className='relevant'>
+                    Relevant Courses:
+                </div>
+
+                <div className='body'>
+                    <div className='comment'>
+                        comments
+                    </div>
+
+                    <div className='review'>
+                        ratings
+                    </div>
+                </div>
             </div>
         )
     }
