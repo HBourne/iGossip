@@ -19,6 +19,7 @@ export class Professor extends Component {
 
         };
 
+        // TODO: Substitute this mock info with api fetch
         this.info = {
             name: 'xxx',
             position: 'xxx',
@@ -26,7 +27,11 @@ export class Professor extends Component {
             tel: 'xxx',
             fax: 'xxx',
             email: 'xxx',
-            webpage: 'xxx',
+            webpage: 'xxx'
+        }
+
+        // TODO: Substitute this mock info with mongodb fetch
+        this.mongo = {
             education: [
                 {
                     degree: 'BS',
@@ -79,6 +84,7 @@ export class Professor extends Component {
                                 <Descriptions.Item label='Webpage'>{this.info.webpage}</Descriptions.Item>
                             </Descriptions>
                         </div>
+                        {/* TODO: Figure out a way to retrieve image data */}
                         <div className='photo'>
                             Photo should be inserted here.
                         </div>
@@ -91,7 +97,7 @@ export class Professor extends Component {
                     </div>
                     <List
                         itemLayout="horizontal"
-                        dataSource={this.info.education}
+                        dataSource={this.mongo.education}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
@@ -109,7 +115,7 @@ export class Professor extends Component {
                     </div>
                     <List
                         itemLayout="horizontal"
-                        dataSource={this.info.work}
+                        dataSource={this.mongo.work}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
@@ -127,7 +133,7 @@ export class Professor extends Component {
                     </div>
                     <List
                         itemLayout="horizontal"
-                        dataSource={this.info.honor}
+                        dataSource={this.mongo.honor}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta

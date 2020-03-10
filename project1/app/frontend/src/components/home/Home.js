@@ -17,6 +17,7 @@ export class Home extends Component {
     }
 
     render() {
+        // TODO: Implement the state change to allow page content update
         return (
             <div className='home'>
                 <div className='up'>
@@ -36,9 +37,9 @@ export class Home extends Component {
                         <div className='content'>
                             {/* The content should be determined by the state and choose from Professor, Course, Profile and DefaultContent */}
 
-                            <Professor></Professor>
+                            {/* <Professor></Professor> */}
                             {/* <Course></Course> */}
-                            {/* <Profile></Profile> */}
+                            <Profile></Profile>
                             {/* <DefaultContent></DefaultContent> */}
                         </div>
                     </div>
