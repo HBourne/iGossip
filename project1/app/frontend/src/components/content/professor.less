@@ -1,3 +1,31 @@
 .professor {
     display: flex;
+    flex-direction: column;
+
+    .info {
+        display: flex;
+        flex-direction: column;
+
+        .body {
+            display: flex;
+            flex-direction: row;
+
+            .contact {
+                width: 70%;
+                display: flex;
+                flex-direction: column;
+            }
+    
+            .photo {
+                width: 30%;
+            }
+        }
+    }
+}
+
+[name='title'] {
+    font-size: 16pt;
+    padding-top: 5pt;
+    padding-bottom: 5pt;
+    font-weight: bold;
 }
