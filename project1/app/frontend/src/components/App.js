@@ -3,11 +3,13 @@ import { render } from "react-dom";
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 // import { Home } from "./home/Home"
 import { Welcome } from './home/Welcome';
+import { Login } from './login/Login';
 
 class App extends Component {
     render() {
         return <Router>
-            <Route exact path="/" component={Welcome} />
+            {/* <Route exact path="/" component={Welcome} /> */}
+            <Route exact path="/" component={Login} />
         </Router>
     }
 }
