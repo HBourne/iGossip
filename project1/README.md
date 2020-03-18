@@ -80,8 +80,8 @@ After running the command above, you should be able to see an API interface thro
 ```
 $ npm i webpack webpack-cli
 $ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties
-$ npm i react react-dom
-$ npm i less less-loader css-loader style-loader
+$ npm i react react-dom react-router-dom
+$ npm i less less-loader css-loader style-loader url-loader
 $ npm i antd
 ```
 If you have any problem installing `antd` on MacOS, please refer to https://github.com/schnerd/d3-scale-cluster/issues/7.
@@ -90,7 +90,14 @@ Also, ensure you have `yarn` since we have to install ant design icons through `
 ```
 $ yarn add @ant-design/icons@4.0.0
 ```
+Ensure your have the latest version of node.js
+
+```
+$ npm i -g npm
+```
+
 Then, run the frontend:
+
 ```
 $ cd .app/frontend && npm run dev
 ```

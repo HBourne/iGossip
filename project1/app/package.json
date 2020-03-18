@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "@ant-design/icons": "4.0.0"
+    "@ant-design/icons": "4.0.0",
+    "webpack": "^4.42.0"
+  },
+  "devDependencies": {
+    "file-loader": "^6.0.0"
   }
 }
