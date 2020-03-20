@@ -20,4 +20,6 @@ urlpatterns = [
     path('', include('apiTest.urls')),
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
+    path('login/', include('frontend.urls')),
+    path('welcome/', include('frontend.urls')),
 ]

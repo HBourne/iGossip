@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/home/maxmoe/Project/CS411/project1/app/base/mysql.conf',
+            'read_default_file': '/Users/hankren/RQH/git/CS411/project1/app/base/mysql.conf',
         },
     }
 }
