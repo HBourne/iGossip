@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import './login.less';
 import 'antd/dist/antd.css';
-import { Card, Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const layout = {
@@ -61,7 +61,7 @@ const LoginForm = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="">register now!</a>
+        Or <a href="/join">register now!</a>
       </Form.Item>
     </Form>
   );
@@ -90,5 +90,3 @@ export class Login extends Component {
         )
     }
 }
-
-export default Login;
