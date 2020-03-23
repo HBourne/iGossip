@@ -13,8 +13,28 @@ export class Home extends Component {
         super(props);
 
         this.state = {
-
+            current: 'default'
         };
+    }
+
+    currentCallback = (newCurrent) => {
+        this.setState({
+            current: newCurrent
+        })
+    }
+
+    sidebarCallback = (id, newCurrent) => {
+        this.setState({
+            course: id,
+            current: newCurrent
+        })
+    }
+
+    courseCallback = (id, newCurrent) => {
+        this.setState({
+            prof: id,
+            current: newCurrent
+        })
     }
 
     render() {
@@ -22,21 +42,32 @@ export class Home extends Component {
         return (
             <div className='home'>
                 <div className='up'>
-                    <Navigator></Navigator>
+                    <Navigator parentCallback={this.currentCallback}></Navigator>
                 </div>
 
                 <div className='bottom'>
                     <div className='left'>
-                        <Sidebar></Sidebar>
+                        <Sidebar parentCallback={this.sidebarCallback}></Sidebar>
                     </div>
 
                     <div className='right'>
                         <div className='content'>
-                            {/* The content should be determined by the state and choose from Professor, Course, Profile and DefaultContent */}
-                            {/* <Professor></Professor> */}
-                            {/* <Course></Course> */}
-                            {/* <Profile></Profile> */}
-                            <DefaultContent></DefaultContent>
+                            {
+                                this.state.current == 'default' &&
+                                <DefaultContent></DefaultContent>
+                            }
+                            {
+                                this.state.current == 'prof' && this.state.prof &&
+                                <Professor prof={this.state.prof}></Professor>
+                            }
+                            {
+                                this.state.current == 'course' && this.state.course &&
+                                <Course course={this.state.course} parentCallback={this.courseCallback}></Course>
+                            }
+                            {
+                                this.state.current == 'profile' &&
+                                <Profile></Profile>
+                            }
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,17 @@ export class Navigator extends Component {
         this.setState({
             current: e.key,
         });
+        let current;
+        if (e.key == 'home') {
+            current = 'default';
+        }
+        if (e.key == 'comments') {
+            current = 'comment';
+        }
+        if (e.key == 'favorites') {
+            current = 'favorites';
+        }
+        this.props.parentCallback(current);
     }
 
     render() {

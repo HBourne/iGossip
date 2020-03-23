@@ -26,7 +26,12 @@ export class Sidebar extends Component {
                 id: 2,
                 title: 'CS422 - Rosu'
             }
-        ]
+        ];
+    }
+
+    handleClick = (item) => {
+        console.log(item)
+        this.props.parentCallback(item.id, 'course');
     }
 
     render() {
@@ -45,7 +50,7 @@ export class Sidebar extends Component {
                         itemLayout="horizontal"
                         dataSource={this.mongo}
                         renderItem={item => (
-                            <List.Item onClick={() => console.log(item.id)}>
+                            <List.Item onClick={() => this.handleClick(item)}>
                                 <List.Item.Meta
                                     title={<a>{item.title}</a>}
                                 />

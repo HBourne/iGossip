@@ -20,6 +20,16 @@ export class Course extends Component {
         };
     }
 
+    componentDidMount() {
+        console.log(this.props.course)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.course != prevProps.course) {
+            console.log(this.props.course)
+        }
+    }
+
     render() {
         return (
             <div className='course'>
