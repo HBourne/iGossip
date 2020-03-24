@@ -11,11 +11,12 @@ from django.db import models
 
 class Course(models.Model):
     name = models.CharField(max_length = 100)
-    subject = models.CharField(max_length = 3)
+    subject = models.CharField(max_length = 10)
     number = models.IntegerField()
     instructor = models.CharField(max_length = 100)
-    hash_val = models.CharField(max_length = 64)
+    hash_val = models.CharField(max_length = 100)
 
+  
 class User(models.Model):
     username = models.CharField(max_length = 30)
     password = models.CharField(max_length = 50)

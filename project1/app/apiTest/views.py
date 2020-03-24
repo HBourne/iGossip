@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from apiTest.serializers import CourseSerializer
-from apiTest.models import Course
+from apiTest.serializers import CourseSerializer, UserSerializer
+from apiTest.models import Course, User
 from rest_framework import filters
 from rest_framework import viewsets
 from django.db.models import Q
+from django.db import connection
+from django.http import JsonResponse
+
 
 
 # class CourseListSearchByField(generics.ListCreateAPIView):
@@ -30,6 +33,22 @@ from django.db.models import Q
 #                     queryset = queryset.filter(instructor = curr_instructor)
 #                 return queryset
 
+# class CourseListGeneralSearchORM(generics.ListCreateAPIView):
+#     serializer_class = CourseSerializer
+#     def get_queryset(self):
+#         if self.request.method == 'GET':
+#             queryset = Course.objects.all()
+#             query = self.request.GET.get('string', None)
+#             if query is None:
+#                 return queryset
+#             if query.isdigit():
+#                 queryset = queryset.filter(number = query)
+#                 return queryset
+#             lookups = Q(name__icontains = query) | Q(instructor__icontains=query) | Q(subject__icontains = query)
+#             queryset = queryset.filter(lookups)
+#             return queryset
+           
+
 class CourseListGeneralSearch(generics.ListCreateAPIView):
       serializer_class = CourseSerializer
       def get_queryset(self):
@@ -37,10 +56,29 @@ class CourseListGeneralSearch(generics.ListCreateAPIView):
             queryset = Course.objects.all()
             query = self.request.GET.get('string', None)
             if query is None:
-                return queryset
+                 sql_query = "SELECT * FROM apiTest_course"
+                 return Courses.objects.raw(sql_query)
             if query.isdigit():
-                queryset = queryset.filter(number = query)
-                return queryset
-            lookups = Q(name__icontains = query) | Q(instructor__icontains=query) | Q(subject__icontains = query)
-            queryset = queryset.filter(lookups)
-            return queryset
+                  sql_query = "SELECT * FROM apiTest_course WHERE number = %s"
+                  courses = Course.objects.raw(sql_query,[query])
+                  return courses
+
+            query = '%'+query+'%'
+            sql_query = "SELECT * FROM apiTest_course WHERE name LIKE %s UNION SELECT * FROM apiTest_course WHERE instructor LIKE %s UNION SELECT * FROM apiTest_course WHERE subject LIKE %s;"
+            courses = Course.objects.raw(sql_query,[query, query, query])
+            return courses
+
+
+
+# def get_favorites(request):
+#     if request.method == 'GET':
+#         current_user = request.GET.get('user', None)
+#         if current_user == None:
+#             return JsonResponse({
+#                 'message': "No user"
+#             })
+#         cursor = connection.cursor()
+#         # cursor.execute("")
+
+    
+    
