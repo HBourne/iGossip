@@ -10,7 +10,7 @@ from apiTest.models import Course,User,Favorite,Session
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id','name','subject','number','instructor','hash_val')
+        fields = ('id','subject','number','name','instructor','hash_val')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
