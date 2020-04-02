@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import './login.less';
-import 'antd/dist/antd.css';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import './login.less';
+import 'antd/dist/antd.css';
+import axios from 'axios';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class LoginForm extends Component {
           name="login_form"
           className="login-form"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
+          onFinish={this.login}
         >
           <Form.Item
             name="username"
@@ -66,10 +67,10 @@ class LoginForm extends Component {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.login}>
+            <Button type="primary" htmlType="submit" className="login-form-button"> {/*onClick={this.login}> */} 
               Log in
             </Button>
-            Or <a href="/join">register now!</a>
+            Or <a href="/join" target="_self">register now!</a>
           </Form.Item>
         </Form>
       )

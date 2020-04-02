@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apiTest',
     'frontend',
     'django_filters',
+    'login',
 ]
 
 REST_FRAMEWORK = {

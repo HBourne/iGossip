@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import './join.less';
 import {Form, Input, Button, Checkbox, Select, DatePicker} from 'antd';
+import './join.less';
 import 'antd/dist/antd.css';
+import axios from 'axios';
 
 const formItemLayout = {
     labelCol: {
@@ -45,7 +46,6 @@ class JoinForm extends Component {
             gradYear: 0,
             major: ''
         }
-        this.onFinish = this.onFinish.bind(this);
     }
 
     emailDataHandler = (e) => {
@@ -61,13 +61,11 @@ class JoinForm extends Component {
     }
 
     gradDataHandler = (date, dateString) => {
-        console.log(date);
-        console.log(dateString);
-        this.state.gradYear = e.target.value;
+        this.state.gradYear = parseInt(dateString);
     }
 
-    majorDataHandler = (e) => {
-        this.state.major = e.target.value;
+    majorDataHandler = (value) => {
+        this.state.major = value;
     }
 
     signUp = () => {
@@ -87,8 +85,8 @@ class JoinForm extends Component {
             {...formItemLayout}
             // form={form}
             name="join"
-            onFinish={this.onFinish}
-            onFinishFailed={this.onFinishFailed}
+            onFinish={this.signUp}
+            // onFinishFailed={this.onFinishFailed}
         >
             <Form.Item
                 name="email"
@@ -176,10 +174,10 @@ class JoinForm extends Component {
                 label="Major"
             >
                 <Select style={{width: '100%'}} onChange={this.majorDataHandler}>
-                    <Option value="cs">Computer Science</Option>
-                    <Option value="ce">Computer Engineering</Option>
-                    <Option value="cx">CS+X</Option>
-                    <Option value="ee">Others</Option>
+                    <Select.Option value="cs">Computer Science</Select.Option>
+                    <Select.Option value="ce">Computer Engineering</Select.Option>
+                    <Select.Option value="cx">CS+X</Select.Option>
+                    <Select.Option value="ee">Others</Select.Option>
                 </Select>
             </Form.Item>   
 
