@@ -35,24 +35,51 @@ const tailFormItemLayout = {
     }
 };
 
-const MajorSelector = (
-    <Select style={{width: '100%'}}>
-        <Option value="cs">Computer Science</Option>
-        <Option value="ce">Computer Engineering</Option>
-        <Option value="cx">CS+X</Option>
-        <Option value="ee">Others</Option>
-    </Select>
-);
-
-
 class JoinForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            email: '',
+            username: '',
+            password: '',
+            gradYear: 0,
+            major: ''
+        }
         this.onFinish = this.onFinish.bind(this);
     }
 
-    onFinish() {
+    emailDataHandler = (e) => {
+        this.state.email = e.target.value;
+    }
 
+    usernameDataHandler = (e) => {
+        this.state.username = e.target.value;
+    }
+
+    passwordDataHandler = (e) => {
+        this.state.password = e.target.value;
+    }
+
+    gradDataHandler = (date, dateString) => {
+        console.log(date);
+        console.log(dateString);
+        this.state.gradYear = e.target.value;
+    }
+
+    majorDataHandler = (e) => {
+        this.state.major = e.target.value;
+    }
+
+    signUp = () => {
+        axios.post('/join', {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+            gradYear: this.state.gradYear,
+            major: this.state.major,
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     }
         
     render() {
@@ -61,6 +88,7 @@ class JoinForm extends Component {
             // form={form}
             name="join"
             onFinish={this.onFinish}
+            onFinishFailed={this.onFinishFailed}
         >
             <Form.Item
                 name="email"
@@ -76,7 +104,7 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-                <Input/>
+                <Input onChange={this.emailDataHandler}/>
             </Form.Item>
 
             <Form.Item
@@ -90,7 +118,7 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-                <Input/>
+                <Input onChange={this.usernameDataHandler}/>
             </Form.Item>
 
             <Form.Item
@@ -104,7 +132,7 @@ class JoinForm extends Component {
                 ]}
                 hasFeedback
             >
-                <Input.Password/>
+                <Input.Password onChange={this.passwordDataHandler}/>
             </Form.Item>
 
             <Form.Item
@@ -140,14 +168,19 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-                <DatePicker picker="year" style={{width: '100%'}}/>
+                <DatePicker picker="year" style={{width: '100%'}} onChange={this.gradDataHandler}/>
             </Form.Item>
 
             <Form.Item
                 name="major"
                 label="Major"
             >
-                {MajorSelector}
+                <Select style={{width: '100%'}} onChange={this.majorDataHandler}>
+                    <Option value="cs">Computer Science</Option>
+                    <Option value="ce">Computer Engineering</Option>
+                    <Option value="cx">CS+X</Option>
+                    <Option value="ee">Others</Option>
+                </Select>
             </Form.Item>   
 
             <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>
