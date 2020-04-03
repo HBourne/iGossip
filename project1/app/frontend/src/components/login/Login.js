@@ -5,6 +5,10 @@ import './login.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
 
+// csrf settings for django
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 class LoginForm extends Component {
     constructor(props) {
       super(props);
@@ -23,7 +27,7 @@ class LoginForm extends Component {
     }
 
     login = () => {
-      axios.post('/login', {
+      axios.post('http://127.0.0.1:8000/user/auth/', {
         username: this.state.username,
         password: this.state.password,
       })

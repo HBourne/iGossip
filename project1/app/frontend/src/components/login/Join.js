@@ -4,6 +4,10 @@ import './join.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
 
+// csrf settings for django
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -69,7 +73,7 @@ class JoinForm extends Component {
     }
 
     signUp = () => {
-        axios.post('/join', {
+        axios.post('http://127.0.0.1:8000/user/join/', {
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,
