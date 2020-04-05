@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Form, Input, Button, Checkbox, Select, DatePicker} from 'antd';
+import {Redirect} from "react-router-dom";
 import './join.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
@@ -44,6 +45,7 @@ class JoinForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            redirect: null,
             email: '',
             username: '',
             password: '',
@@ -80,11 +82,21 @@ class JoinForm extends Component {
             gradYear: this.state.gradYear,
             major: this.state.major,
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+            if (res.status == 200)
+                this.setState({redirect: '/'});
+            else
+                alert(res.message)
+        })
         .catch((err) => console.log(err))
     }
         
     render() {
+        if (this.state.redirect) {
+            console.log('redirect!');
+            return <Redirect to = {this.state.redirect}/>;
+        }
+
         return (<Form
             {...formItemLayout}
             // form={form}

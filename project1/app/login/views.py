@@ -5,11 +5,11 @@ from rest_framework.decorators import api_view
 from . import models
 import hashlib
 
-# def hash_code(s, salt='cs241'):
-#     h = hashlib.sha256()
-#     s += salt
-#     h.update(s.encode())
-#     return h.hexdigest()
+def hash_code(s, salt='cs241'):
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()
 
 
 @api_view(['POST'])
@@ -28,11 +28,12 @@ def login(request):
                 message = 'Non-existing user！'
                 return HttpResponse(message, status=401)
             
-            # if hash_code(password) == user.password:
-            if password == user.password:
+            if hash_code(password) == user.password:
+            # if password == user.password:
                 request.session['is_loggedin'] = True
                 request.session['username'] = user.username
-                return HttpResponse(status=200)
+                message = "successfully logged in!"
+                return HttpResponse(message, status=200)
             else:
                 message = 'do not match!'
                 return HttpResponse(message, status=401)   
@@ -72,13 +73,15 @@ def register(request):
         new_user = models.User()
         new_user.email = email
         new_user.username = username
-        # new_user.password = hash_code(password)
-        new_user.password = password
+        new_user.password = hash_code(password)
+        # new_user.password = password
         # print(len(new_user.password))
         new_user.grad_year = grad_year
         new_user.major = major
         new_user.save()
 
+        request.session['is_loggedin'] = True
+        request.session['username'] = username
         return HttpResponse(status=200)
 
     return HttpResponse(status=400)

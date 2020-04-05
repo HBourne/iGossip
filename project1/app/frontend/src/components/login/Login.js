@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined} from '@ant-design/icons';
+import {Redirect} from "react-router-dom";
 import './login.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
@@ -13,29 +14,44 @@ class LoginForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        redirect: null,
         username: '',
         password: '',
       };
+
+      this.usernameDataHandler = this.usernameDataHandler.bind(this);
+      this.passwordDataHandler = this.passwordDataHandler.bind(this);
+      this.login = this.login.bind(this);
     }
 
-    usernameDataHandler = (e) => {
+    usernameDataHandler(e) {
       this.state.username = e.target.value;
     }
 
-    passwordDataHandler = (e) => {
+    passwordDataHandler(e) {
         this.state.password = e.target.value;
     }
 
-    login = () => {
+    login() {
       axios.post('http://127.0.0.1:8000/user/auth/', {
         username: this.state.username,
         password: this.state.password,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.status == 200)
+          this.setState({redirect: '/'});
+        else
+          alert(res.message)
+      })
       .catch((err) => console.log(err))
     }
 
     render() {
+      if (this.state.redirect) {
+        console.log('redirect!');
+        return <Redirect to = {this.state.redirect}/>;
+      }
+
       return (                
         <Form
           name="login_form"
