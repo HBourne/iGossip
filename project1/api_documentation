@@ -1,0 +1,5 @@
+/course
+==================================================================================================
+/api/search: GET request, returns all courses
+
+/api/search/?string=: GET request, returns courses with attributes matching query string
