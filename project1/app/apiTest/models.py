@@ -15,7 +15,6 @@ from django.db import models
 #     number = models.IntegerField()
 #     instructor = models.CharField(max_length = 100)
 #     hash_val = models.CharField(max_length = 100)
-
   
 # class User(models.Model):
 #     username = models.CharField(max_length = 30)

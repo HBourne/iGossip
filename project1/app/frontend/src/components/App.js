@@ -1,48 +1,17 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Home } from "./home/Home"
+import { Welcome } from './home/Welcome';
+import { Login } from './login/Login';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [],
-            loaded: false,
-            placeholder: "Loading"
-        };
-    }
-
-    componentDidMount() {
-        fetch("api/test")
-            .then(response => {
-                if (response.status > 400) {
-                    return this.setState(() => {
-                        return { placeholder: "Something went wrong!" };
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                this.setState(() => {
-                    return {
-                        data,
-                        loaded: true
-                    };
-                });
-            });
-    }
-
     render() {
-        return (
-            <ul>
-                {this.state.data.map(contact => {
-                    return (
-                        <li key={contact.id}>
-                            {contact.name} - {contact.email}
-                        </li>
-                    );
-                })}
-            </ul>
-        );
+        return <Router>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/welcome" component={Welcome} />
+        </Router>
     }
 }
 
