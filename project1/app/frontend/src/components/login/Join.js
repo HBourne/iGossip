@@ -4,6 +4,7 @@ import {Redirect} from "react-router-dom";
 import './join.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
+import cookie from 'react-cookies';
 
 // csrf settings for django
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -83,17 +84,18 @@ class JoinForm extends Component {
             major: this.state.major,
         })
         .then((res) => {
-            if (res.status == 200)
+            if (res.status == 200) {
+                // cookie.save('user', this.state.username, { path: '/' });
                 this.setState({redirect: '/'});
+            }
             else
                 alert(res.message)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => alert(err.response.data))
     }
         
     render() {
         if (this.state.redirect) {
-            console.log('redirect!');
             return <Redirect to = {this.state.redirect}/>;
         }
 

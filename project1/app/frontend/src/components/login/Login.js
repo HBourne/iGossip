@@ -5,12 +5,17 @@ import {Redirect} from "react-router-dom";
 import './login.less';
 import 'antd/dist/antd.css';
 import axios from 'axios';
+import cookie from 'react-cookies';
+
+const usernameContext = React.createContext('null');
 
 // csrf settings for django
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 class LoginForm extends Component {
+    static contextType = usernameContext;
+
     constructor(props) {
       super(props);
       this.state = {
@@ -38,21 +43,25 @@ class LoginForm extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        if (res.status == 200)
+        if (res.status == 200) {
+          // cookie.load('username') // on use
+          // cookie.remove('username') // on logout
+          cookie.save('username', this.state.username);
           this.setState({redirect: '/'});
+        }
         else
           alert(res.message)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => alert(err.response.data))
     }
 
     render() {
       if (this.state.redirect) {
-        console.log('redirect!');
-        return <Redirect to = {this.state.redirect}/>;
+        // console.log('redirect!');
+        return <Redirect to = {{pathname: this.state.redirect, state: {username: true}}}/>;
       }
 
-      return (                
+      return (     
         <Form
           name="login_form"
           className="login-form"

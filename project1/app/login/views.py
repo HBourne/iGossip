@@ -11,7 +11,6 @@ def hash_code(s, salt='cs241'):
     h.update(s.encode())
     return h.hexdigest()
 
-
 @api_view(['POST'])
 def login(request):
     if request.session.get('is_loggedin', None):  
@@ -25,17 +24,17 @@ def login(request):
             try:
                 user = models.User.objects.get(username=username)
             except:
-                message = 'Non-existing user！'
+                message = 'The username you entered does not exist！'
                 return HttpResponse(message, status=401)
             
             if hash_code(password) == user.password:
             # if password == user.password:
                 request.session['is_loggedin'] = True
                 request.session['username'] = user.username
-                message = "successfully logged in!"
+                message = "Welcome!"
                 return HttpResponse(message, status=200)
             else:
-                message = 'do not match!'
+                message = 'The username or password you entered might be incorrect.'
                 return HttpResponse(message, status=401)   
 
     return HttpResponse(status=400)
