@@ -35,7 +35,7 @@ def course_csv_to_mysql(host, user, password, db_name):
                     name_ = row[3]
                     instructor_ = row[4]
                     hash_val_ = row[5]
-                    cursor.execute('INSERT INTO apiTest_course(subject, \
+                    cursor.execute('INSERT INTO search_course(subject, \
             number, name, instructor, hash_val)' \
             'VALUES("%s", "%s", "%s","%s","%s")',
             [subject_,number_,name_,instructor_, hash_val_])

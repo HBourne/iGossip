@@ -19,7 +19,7 @@ class CourseListGeneralSearch(generics.ListCreateAPIView):
             query = self.request.GET.get('string', None)
             if query is None:
                  sql_query = "SELECT * FROM search_course"
-                 return Courses.objects.raw(sql_query)
+                 return Course.objects.raw(sql_query)
             if query.isdigit():
                   sql_query = "SELECT * FROM search_course WHERE number = %s"
                   courses = Course.objects.raw(sql_query,[query])
