@@ -7,20 +7,32 @@ import { Course } from '../content/Course';
 import { Profile } from '../content/Profile';
 import { Navigator } from '../navigator/Navigator'
 import { DefaultContent } from '../content/DefaultContent'
+import { setRawCookie } from "react-cookies";
+import cookie from 'react-cookies';
 
 export class Home extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            current: 'default'
+            current: 'default',
+            login: false
         };
     }
 
     currentCallback = (newCurrent) => {
-        this.setState({
-            current: newCurrent
-        })
+        if (newCurrent != 'login') {
+            this.setState({
+                current: newCurrent
+            });
+        } else {
+            if (cookie.load('username') !== undefined) {
+                this.setState({
+                    login: true
+                })
+            }
+            console.log('login: ', this.state.login);
+        }
     }
 
     sidebarCallback = (id, newCurrent) => {
@@ -36,6 +48,14 @@ export class Home extends Component {
             prof: id,
             current: newCurrent
         })
+    }
+
+    componentDidMount() {
+        if (cookie.load('username') !== undefined) {
+            this.setState({
+                login: true
+            })
+        }
     }
 
     render() {
