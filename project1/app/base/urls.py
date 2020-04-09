@@ -23,5 +23,6 @@ urlpatterns = [
     path('join/', include('frontend.urls')),
     path('login/', include('frontend.urls')),
     path('welcome/', include('frontend.urls')),
-    path('user/', include('login.urls')) # RESTful api for view login
+    path('user/', include('login.urls')), # RESTful api for view login
+    path('',include('favorites.urls'))
 ]
