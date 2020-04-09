@@ -24,6 +24,7 @@ export class Home extends Component {
     }
 
     sidebarCallback = (id, newCurrent) => {
+        console.log(id, newCurrent)
         this.setState({
             course: id,
             current: newCurrent

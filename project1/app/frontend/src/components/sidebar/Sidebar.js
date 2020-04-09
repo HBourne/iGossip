@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './sidebar.less'
-import { Input, List } from 'antd';
+import { Input, List, message } from 'antd';
 import 'antd/dist/antd.css';
 
 // Sidebar:
@@ -14,24 +14,53 @@ export class Sidebar extends Component {
         super(props);
 
         this.state = {
-
+            mysql: []
         };
 
-        // TODO: Substitute this mock info with mongodb fetch
-        this.mongo = [
-            {
-                id: 1,
-                title: 'CS411 - Abdu'
-            }, {
-                id: 2,
-                title: 'CS422 - Rosu'
-            }
-        ];
+        // TODO: Substitute this mock info with mysql fetch
+    }
+
+    componentDidMount() {
+        try {
+            fetch("api/search").then(res => {
+                if (res.status > 400) {
+                    message.error("Course list unavailable");
+                    throw "Error";
+                }
+                return res.json();
+            }).then(data => {
+                this.setState({
+                    mysql: data
+                })
+            })
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     handleClick = (item) => {
         console.log(item)
         this.props.parentCallback(item.id, 'course');
+    }
+
+    handleSearch = (value) => {
+        try {
+            fetch("api/search/?string=" + value).then(res => {
+                if (res.status > 400) {
+                    message.error("Search unavailable");
+                    throw "Error";
+                }
+                return res.json();
+            }).then(data => {
+                this.setState({
+                    mysql: data
+                })
+            })
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     render() {
@@ -41,18 +70,19 @@ export class Sidebar extends Component {
                 <div className='search'>
                     <Search
                         placeholder="Search keywords for courses"
-                        onSearch={value => console.log(value)}
+                        onSearch={value => this.handleSearch(value)}
                     />
                 </div>
 
                 <div className='result'>
                     <List
+                        style={{ height: "87vh", overflow: "auto" }}
                         itemLayout="horizontal"
-                        dataSource={this.mongo}
+                        dataSource={this.state.mysql}
                         renderItem={item => (
                             <List.Item onClick={() => this.handleClick(item)}>
                                 <List.Item.Meta
-                                    title={<a>{item.title}</a>}
+                                    title={<a>{item.subject.replace(/\'/g, '') + item.number + ' - ' + item.instructor.replace(/\'/g, '')}</a>}
                                 />
                             </List.Item>
                         )}
