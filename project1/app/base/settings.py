@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'frontend',
     'login',
+    'favorites',
 ]
 
 REST_FRAMEWORK = {
@@ -87,7 +88,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': 'base/mysql.conf',
+            'read_default_file': '/Users/gauravsharma/CS411/mysql.conf',
         },
     }
 }
