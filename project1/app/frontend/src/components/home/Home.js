@@ -63,9 +63,8 @@ export class Home extends Component {
         return (
             <div className='home'>
                 <div className='up'>
-                    <Navigator parentCallback={this.currentCallback}></Navigator>
+                    <Navigator parentCallback={this.currentCallback} login={this.state.login}></Navigator>
                 </div>
-
                 <div className='bottom'>
                     <div className='left'>
                         <Sidebar parentCallback={this.sidebarCallback}></Sidebar>

@@ -18,7 +18,7 @@ export class Navigator extends Component {
 
         this.state = {
             current: 'home',
-            displaylogin: true
+            displaylogin: !this.props.login
         };
     }
 
@@ -42,9 +42,6 @@ export class Navigator extends Component {
         }
         if (e.key == 'login') {
             current = 'login'
-            this.setState({
-                displaylogin: false
-            });
             this.props.parentCallback(login);
         }
         if (e.key == 'logout') {
@@ -101,14 +98,14 @@ export class Navigator extends Component {
                         </Menu.Item>
                     }
                     {
-                        this.state.login &&
+                        !this.state.displaylogin &&
                         <Menu.Item key="comments">
                             <DatabaseOutlined />
                             Comments
                         </Menu.Item>
                     }
                     {
-                        this.state.login &&
+                        !this.state.displaylogin &&
                         <Menu.Item key="favorites">
                             <HeartOutlined />
                             Favorites
