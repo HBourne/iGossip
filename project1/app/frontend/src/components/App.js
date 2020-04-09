@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Home } from "./home/Home"
 import { Welcome } from './home/Welcome';
 import { Login } from './login/Login';
+import { Join } from './login/Join'
 
 class App extends Component {
     render() {
@@ -11,6 +12,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/welcome" component={Welcome} />
+            <Route exact path="/join" component={Join} />
         </Router>
     }
 }

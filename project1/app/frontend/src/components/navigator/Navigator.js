@@ -3,6 +3,8 @@ import { Menu, Layout } from 'antd';
 import './navigator.less';
 import 'antd/dist/antd.css';
 import { BankOutlined, LoginOutlined, HeartOutlined, DatabaseOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
 const { Header, Content, Footer } = Layout;
 

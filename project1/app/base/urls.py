@@ -20,6 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('search.urls')),
     path('', include('frontend.urls')),
+    path('join/', include('frontend.urls')),
     path('login/', include('frontend.urls')),
     path('welcome/', include('frontend.urls')),
+    path('user/', include('login.urls')) # RESTful api for view login
 ]

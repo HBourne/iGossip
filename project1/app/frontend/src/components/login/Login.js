@@ -1,92 +1,125 @@
 import React, { Component } from "react";
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined} from '@ant-design/icons';
+import {Redirect} from "react-router-dom";
 import './login.less';
 import 'antd/dist/antd.css';
-import { Card, Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-};
+const usernameContext = React.createContext('null');
 
-const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 }
-};
+// csrf settings for django
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-const onFinish = values => {
-    console.log('Received values of form: ', values);
-};
+class LoginForm extends Component {
+    static contextType = usernameContext;
 
-const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-};
+    constructor(props) {
+      super(props);
+      this.state = {
+        redirect: null,
+        username: '',
+        password: '',
+      };
 
+      this.usernameDataHandler = this.usernameDataHandler.bind(this);
+      this.passwordDataHandler = this.passwordDataHandler.bind(this);
+      this.login = this.login.bind(this);
+    }
 
+    usernameDataHandler(e) {
+      this.state.username = e.target.value;
+    }
 
-const LoginForm = () => {
-  return (
-    <Form
-      name="login_form"
-      className="login-form"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-    >
-      <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
-      >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
-      >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+    passwordDataHandler(e) {
+        this.state.password = e.target.value;
+    }
 
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-      </Form.Item>
+    login() {
+      axios.post('http://127.0.0.1:8000/user/auth/', {
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          // cookie.load('username') // on use
+          // cookie.remove('username') // on logout
+          cookie.save('username', this.state.username);
+          this.setState({redirect: '/'});
+        }
+        else
+          alert(res.message)
+      })
+      .catch((err) => alert(err.response.data))
+    }
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-        Or <a href="">register now!</a>
-      </Form.Item>
-    </Form>
-  );
-};
+    render() {
+      if (this.state.redirect) {
+        // console.log('redirect!');
+        return <Redirect to = {{pathname: this.state.redirect, state: {username: true}}}/>;
+      }
 
+      return (     
+        <Form
+          name="login_form"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={this.login}
+        >
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: 'Please input your Username!' }]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+              onChange={this.usernameDataHandler}
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: 'Please input your Password!' }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+              onChange={this.passwordDataHandler}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+          </Form.Item>
 
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button"> {/*onClick={this.login}> */} 
+              Log in
+            </Button>
+            Or <a href="/join" target="_self">register now!</a>
+          </Form.Item>
+        </Form>
+      )
+    }
+}
 export class Login extends Component {
     constructor(props) {
-        super(props);
-
-        this.state = {
-
-        };
+      super(props);
     }
 
     render() {
         return (
-            <div className='login'>
-              <div className='container'>
-                <h1>Log into your iGossip account</h1>
-                <div className='form-wrapper'>    
-                    <LoginForm></LoginForm>
-                </div>
+          <div className='login'>
+            <div className='container'>
+              <h1>Log into your iGossip account</h1>
+              <div className='form-wrapper'>    
+                <LoginForm/>
               </div>
             </div>
+          </div>
         )
     }
 }
