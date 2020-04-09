@@ -21,7 +21,7 @@ export class Home extends Component {
     }
 
     currentCallback = (newCurrent) => {
-        if (newCurrent != 'login') {
+        if (newCurrent != 'login' || newCurrent != 'logout') {
             this.setState({
                 current: newCurrent
             });
@@ -30,15 +30,18 @@ export class Home extends Component {
                 this.setState({
                     login: true
                 })
+            } else {
+                this.setState({
+                    login: false
+                })
             }
-            console.log('login: ', this.state.login);
         }
     }
 
-    sidebarCallback = (id, newCurrent) => {
-        console.log(id, newCurrent)
+    sidebarCallback = (item, newCurrent) => {
+        console.log(item, newCurrent)
         this.setState({
-            course: id,
+            course: item,
             current: newCurrent
         })
     }
@@ -82,7 +85,7 @@ export class Home extends Component {
                             }
                             {
                                 this.state.current == 'course' && this.state.course &&
-                                <Course course={this.state.course} parentCallback={this.courseCallback}></Course>
+                                <Course course={this.state.course} parentCallback={this.courseCallback} login={this.state.login}></Course>
                             }
                             {
                                 this.state.current == 'profile' &&

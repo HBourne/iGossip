@@ -32,6 +32,10 @@ export class Navigator extends Component {
             current = 'default';
             this.props.parentCallback(current);
         }
+        if (e.key == 'profile') {
+            current = 'profile';
+            this.props.parentCallback(current);
+        }
         if (e.key == 'comments') {
             current = 'comment';
             this.props.parentCallback(current);
@@ -42,9 +46,10 @@ export class Navigator extends Component {
         }
         if (e.key == 'login') {
             current = 'login'
-            this.props.parentCallback(login);
+            this.props.parentCallback(current);
         }
         if (e.key == 'logout') {
+            current = 'logout'
             if (cookie.load('username') !== undefined) {
                 axios.post('http://127.0.0.1:8000/user/quit/', {
                     username: cookie.load('username'),
@@ -57,6 +62,7 @@ export class Navigator extends Component {
                             this.setState({
                                 displaylogin: true
                             });
+                            this.props.parentCallback(current);
                         } else alert(res.message)
                     })
                     .catch((err) => alert(err.response.data))
@@ -95,6 +101,13 @@ export class Navigator extends Component {
                         <Menu.Item key="logout">
                             <LogoutOutlined />
                             Logout
+                        </Menu.Item>
+                    }
+                    {
+                        !this.state.displaylogin &&
+                        <Menu.Item key="profile">
+                            <DatabaseOutlined />
+                            Profile
                         </Menu.Item>
                     }
                     {
