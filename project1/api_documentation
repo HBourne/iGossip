@@ -4,13 +4,15 @@ Search
 
 /api/search/?string=: GET request, returns courses with attributes matching query string
 
+/api/search/single/?cid=: GET request, returns course with matching course id
+
 ==================================================================================================
 
 Favorites
 ==================================================================================================
-/favorite/get/?u=: GET request, returns all favorite courses with username matching query parameter
-/favorite/add/: POST request, adds course to favorites, takes input JSON data {'username':___ , 'course_id':____}
-/favorite/check/: GET request, checks if username, course_id pair exists in favorites, takes input JSON data {'username':___ , 'course_id':____}
-/favorite/delete/: DELETE request, deletes favorite for a user, takes input JSON data {'username':___ , 'course_id':____}
+/favorites/get/?u=: GET request, returns all favorite courses with username matching query parameter
+/favorites/add/: POST request, adds course to favorites, takes input JSON data {'username':___ , 'course_id':____}
+/favorites/check/?u=&&cid=: GET request, checks if username, course_id pair exists in favorite
+/favorites/delete/: DELETE request, deletes favorite for a user, takes input JSON data {'username':___ , 'course_id':____}
 
 ==================================================================================================
