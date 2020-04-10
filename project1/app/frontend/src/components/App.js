@@ -4,11 +4,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Home } from "./home/Home"
 import { Welcome } from './home/Welcome';
 import { Login } from './login/Login';
-<<<<<<< HEAD
-import { Join } from './login/Join';
-=======
 import { Join } from './login/Join'
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
 
 class App extends Component {
     render() {

@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import './join.less';
-import {Form, Input, Button, Checkbox, Select, DatePicker} from 'antd';
-import 'antd/dist/antd.css';
-=======
 import {Form, Input, Button, Checkbox, Select, DatePicker} from 'antd';
 import {Redirect} from "react-router-dom";
 import './join.less';
@@ -14,7 +9,6 @@ import cookie from 'react-cookies';
 // csrf settings for django
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
 
 const formItemLayout = {
     labelCol: {
@@ -48,29 +42,6 @@ const tailFormItemLayout = {
     }
 };
 
-<<<<<<< HEAD
-const MajorSelector = (
-    <Select style={{width: '100%'}}>
-        <Option value="cs">Computer Science</Option>
-        <Option value="ce">Computer Engineering</Option>
-        <Option value="cx">CS+X</Option>
-        <Option value="ee">Others</Option>
-    </Select>
-);
-
-
-class JoinForm extends Component {
-    constructor(props) {
-        super(props);
-        this.onFinish = this.onFinish.bind(this);
-    }
-
-    onFinish() {
-
-    }
-        
-    render() {
-=======
 class JoinForm extends Component {
     constructor(props) {
         super(props);
@@ -128,17 +99,12 @@ class JoinForm extends Component {
             return <Redirect to = {this.state.redirect}/>;
         }
 
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
         return (<Form
             {...formItemLayout}
             // form={form}
             name="join"
-<<<<<<< HEAD
-            onFinish={this.onFinish}
-=======
             onFinish={this.signUp}
             // onFinishFailed={this.onFinishFailed}
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
         >
             <Form.Item
                 name="email"
@@ -154,11 +120,7 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-<<<<<<< HEAD
-                <Input/>
-=======
                 <Input onChange={this.emailDataHandler}/>
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
             </Form.Item>
 
             <Form.Item
@@ -172,11 +134,7 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-<<<<<<< HEAD
-                <Input/>
-=======
                 <Input onChange={this.usernameDataHandler}/>
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
             </Form.Item>
 
             <Form.Item
@@ -190,11 +148,7 @@ class JoinForm extends Component {
                 ]}
                 hasFeedback
             >
-<<<<<<< HEAD
-                <Input.Password/>
-=======
                 <Input.Password onChange={this.passwordDataHandler}/>
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
             </Form.Item>
 
             <Form.Item
@@ -230,27 +184,19 @@ class JoinForm extends Component {
                     }
                 ]}
             >
-<<<<<<< HEAD
-                <DatePicker picker="year" style={{width: '100%'}}/>
-=======
                 <DatePicker picker="year" style={{width: '100%'}} onChange={this.gradDataHandler}/>
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
             </Form.Item>
 
             <Form.Item
                 name="major"
                 label="Major"
             >
-<<<<<<< HEAD
-                {MajorSelector}
-=======
                 <Select style={{width: '100%'}} onChange={this.majorDataHandler}>
                     <Select.Option value="cs">Computer Science</Select.Option>
                     <Select.Option value="ce">Computer Engineering</Select.Option>
                     <Select.Option value="cx">CS+X</Select.Option>
                     <Select.Option value="ee">Others</Select.Option>
                 </Select>
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
             </Form.Item>   
 
             <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>

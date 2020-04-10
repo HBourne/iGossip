@@ -4,13 +4,8 @@ import { UserOutlined, LockOutlined} from '@ant-design/icons';
 import {Redirect} from "react-router-dom";
 import './login.less';
 import 'antd/dist/antd.css';
-<<<<<<< HEAD
-import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-=======
 import axios from 'axios';
 import cookie from 'react-cookies';
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
 
 const usernameContext = React.createContext('null');
 
@@ -60,23 +55,11 @@ class LoginForm extends Component {
       .catch((err) => alert(err.response.data))
     }
 
-<<<<<<< HEAD
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-        Or <a href="/join">register now!</a>
-      </Form.Item>
-    </Form>
-  );
-};
-=======
     render() {
       if (this.state.redirect) {
         // console.log('redirect!');
         return <Redirect to = {{pathname: this.state.redirect, state: {username: true}}}/>;
       }
->>>>>>> 3404c616f633255c7f5edb9c40e574eed1fb64b1
 
       return (     
         <Form
