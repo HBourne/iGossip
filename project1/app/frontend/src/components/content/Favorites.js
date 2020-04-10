@@ -36,7 +36,6 @@ export class Favorites extends Component {
                     id: data[i].id
                 })
             }
-            console.log(formattedData);
             this.setState({
                 course_list: formattedData,
                 data: data
@@ -120,7 +119,7 @@ export class Favorites extends Component {
                         columns={columns}
                         dataSource={this.state.course_list}
                         pagination={false}
-                        scroll={{ y: 700 }}
+                        scroll={{ y: 600 }}
                         bordered
                     />
                 </div>

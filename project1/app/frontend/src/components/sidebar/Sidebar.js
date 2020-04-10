@@ -40,7 +40,6 @@ export class Sidebar extends Component {
     }
 
     handleClick = (item) => {
-        console.log(item)
         this.props.parentCallback(item, 'course');
     }
 

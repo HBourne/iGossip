@@ -17,18 +17,6 @@ export class Welcome extends Component {
         };
     }
 
-    routeToJoin = () => {
-        let path = '/join';
-        let history = useHistory();
-        history.push(path);
-    }
-
-    routeToLogin = () => {
-        let path = '/login';
-        let history = useHistory();
-        history.push(path);
-    }    
-
     render() {
         return (
             <div className='welcome'>
@@ -38,10 +26,6 @@ export class Welcome extends Component {
                         <div className='line'></div>
                         {/** Plan: type in effect */}
                         <p>where insights get archieved...|</p>
-                    </div>
-                    <div>
-                        <button id='btn-join' onClick={this.routeToJoin}>Join us</button>
-                        <button id='btn-login' onClick={this.routeToLogin}>Login</button>
                     </div>
                 </div>
             </div>

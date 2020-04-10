@@ -17,19 +17,18 @@ export class Navigator extends Component {
         super(props);
 
         this.state = {
-            current: 'default',
+            current: 'home',
             displaylogin: !this.props.login
         };
     }
 
     handleClick = (e) => {
-        console.log('click ', e);
         this.setState({
             current: e.key,
         });
         let current;
         if (e.key == 'home') {
-            current = 'default';
+            current = 'home';
             this.props.parentCallback(current);
         }
         if (e.key == 'profile') {

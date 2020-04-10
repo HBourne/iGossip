@@ -3,7 +3,7 @@ import './home.less';
 import { Sidebar } from '../sidebar/Sidebar';
 import { Professor } from '../content/Professor';
 import { Course } from '../content/Course';
-// import { Welcome } from '../content/Welcome';
+import { Welcome } from './Welcome';
 import { Profile } from '../content/Profile';
 import { Favorites } from '../content/Favorites';
 import { Navigator } from '../navigator/Navigator'
@@ -17,13 +17,13 @@ export class Home extends Component {
         super(props);
 
         this.state = {
-            current: 'default',
+            current: 'home',
             login: false
         };
     }
 
     currentCallback = (newCurrent) => {
-        if (newCurrent != 'login' || newCurrent != 'logout') {
+        if (newCurrent != 'login' && newCurrent != 'logout') {
             this.setState({
                 current: newCurrent
             });
@@ -41,7 +41,6 @@ export class Home extends Component {
     }
 
     sidebarCallback = (item, newCurrent) => {
-        console.log(item, newCurrent)
         this.setState({
             course: item,
             current: newCurrent
@@ -89,8 +88,8 @@ export class Home extends Component {
                     <div className='right'>
                         <div className='content'>
                             {
-                                this.state.current == 'default' &&
-                                <DefaultContent></DefaultContent>
+                                this.state.current == 'home' &&
+                                <Welcome></Welcome>
                             }
                             {
                                 this.state.current == 'prof' && this.state.prof &&
