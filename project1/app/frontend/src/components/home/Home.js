@@ -9,6 +9,7 @@ import { Navigator } from '../navigator/Navigator'
 import { DefaultContent } from '../content/DefaultContent'
 import { setRawCookie } from "react-cookies";
 import cookie from 'react-cookies';
+import axios from 'axios';
 
 export class Home extends Component {
     constructor(props) {
@@ -54,11 +55,15 @@ export class Home extends Component {
     }
 
     componentDidMount() {
-        if (cookie.load('username') !== undefined) {
-            this.setState({
-                login: true
+        axios.post('http://127.0.0.1:8000/user/auth/')
+            .then((res) => {
+                if (res.status == 200) {
+                    cookie.save('username', res.username);
+                    this.setState({
+                        login: true
+                    });
+                }
             })
-        }
     }
 
     render() {

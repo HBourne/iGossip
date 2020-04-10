@@ -79,8 +79,8 @@ export class Course extends Component {
                             </div>
                         }
                     </div>
-                    <div className='credit'>
-                        Available Credits: 3 / 4
+                    <div className='review'>
+                        ratings
                     </div>
                 </div>
                 {
@@ -96,10 +96,6 @@ export class Course extends Component {
                 <div className='body'>
                     <div className='comment'>
                         comments
-                    </div>
-
-                    <div className='review'>
-                        ratings
                     </div>
                 </div>
             </div>
