@@ -22,10 +22,10 @@ export class Welcome extends Component {
             <div className='welcome'>
                 <div className='container'>
                     <div className='banner'>
-                        <h1>Welcome to iGossip!</h1>
+                        <h1>WELCOME to iGossip!</h1>
                         <div className='line'></div>
                         {/** Plan: type in effect */}
-                        <p>where insights get archieved...|</p>
+                        <p>--Where insights get achieved!</p>
                     </div>
                 </div>
             </div>
