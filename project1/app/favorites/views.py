@@ -57,8 +57,8 @@ def delete(request):
 
 def check(request):
     if request.method == "GET":
-        username = request.data.get('username')
-        course_id = request.data.get('course_id')
+        username = request.GET.get('u')
+        course_id = request.GET.get('cid')
         if username is None or course_id is None:
             return HttpResponse(status = 400)
         else:
@@ -76,7 +76,6 @@ def check(request):
                 'favorite': flag
             })
             
-            # return HttpResponse(status = 200)
     else:
         return HttpResponse(status = 400)
 
