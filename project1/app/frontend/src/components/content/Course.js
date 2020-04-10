@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import './course.less'
 import 'antd/dist/antd.css';
+import { message } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import cookie from "react-cookies";
+import axios from 'axios';
 
 // Course:
 // - Display all the information about certain course requested by user including:
@@ -26,6 +28,25 @@ export class Course extends Component {
     }
 
     componentDidMount() {
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/favorites/check/',
+            params: {
+                username: cookie.load('username'),
+                course_id: this.state.course.id,
+            }
+        })
+            .then((res) => {
+                if (res.status >= 400) {
+                    throw res
+                } else {
+                    this.setState({
+                        favorite: false
+                    })
+                }
+            })
+            .catch((err) => message.alert(err.res.status))
+
         if (cookie.load('username') !== undefined) {
             this.setState({
                 login: true
@@ -38,18 +59,69 @@ export class Course extends Component {
             this.setState({
                 course: this.props.course
             })
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8000/favorites/check/',
+                params: {
+                    username: cookie.load('username'),
+                    course_id: this.props.course.id,
+                }
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        throw res
+                    } else {
+                        this.setState({
+                            favorite: false
+                        })
+                    }
+                })
+                .catch((err) => message.alert(err.res.status))
         }
         if (this.props.login != prevProps.login) {
             this.setState({
-                login: this.props.login
+                login: this.props.login,
+                username: cookie.load('username')
             })
         }
     }
 
     handleFavorite = () => {
-        this.setState({
-            favorite: !this.state.favorite
-        })
+        if (this.state.favorite) {
+            axios.delete('http://127.0.0.1:8000/favorites/delete/', {
+                data: {
+                    username: cookie.load('username'),
+                    course_id: this.state.course.id,
+                }
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        message.alert(res.status)
+                        throw res
+                    } else {
+                        this.setState({
+                            favorite: false
+                        })
+                    }
+                })
+                .catch((err) => message.alert(err.res.status))
+        } else {
+            axios.post('http://127.0.0.1:8000/favorites/add/', {
+                username: cookie.load('username'),
+                course_id: this.state.course.id,
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        message.alert(res.status)
+                        throw res
+                    } else {
+                        this.setState({
+                            favorite: true
+                        })
+                    }
+                })
+                .catch((err) => message.alert(err.res.status))
+        }
     }
 
     render() {

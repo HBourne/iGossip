@@ -8,6 +8,7 @@ from django.db import connection
 from rest_framework import generics
 from django.http import HttpResponse
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
 
 class GetFavorites(generics.ListCreateAPIView):
@@ -21,10 +22,13 @@ class GetFavorites(generics.ListCreateAPIView):
             courses = Course.objects.raw(sql_query,[username])
             return courses
 
+@api_view(['POST'])
 def add(request):
     if request.method == 'POST':
         username = request.data.get('username')
         course_id = request.data.get('course_id')
+        print(username)
+        print(course_id)
         if username is None or course_id is None:
             return HttpResponse(status = 400)
         else:
@@ -37,6 +41,7 @@ def add(request):
             return HttpResponse(status=200)
     return HttpResponse(status=400)
 
+@api_view(['DELETE'])
 def delete(request):
     if request.method == "DELETE":
         username = request.data.get('username')
@@ -54,11 +59,13 @@ def delete(request):
 
     return HttpResponse(status=400)
 
-
+@api_view(['GET'])
 def check(request):
+    print(request.data)
     if request.method == "GET":
         username = request.data.get('username')
         course_id = request.data.get('course_id')
+        print(username)
         if username is None or course_id is None:
             return HttpResponse(status = 400)
         else:

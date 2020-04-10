@@ -73,15 +73,19 @@ export class Navigator extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://127.0.0.1:8000/user/auth/')
-            .then((res) => {
-                if (res.status == 200) {
-                    cookie.save('username', res.username);
-                    this.setState({
-                        displaylogin: false
-                    });
-                }
+        if (cookie.load('username') !== undefined) {
+            this.setState({
+                login: true
             })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.login != prevProps.login) {
+            this.setState({
+                displaylogin: !this.props.login
+            })
+        }
     }
 
     render() {

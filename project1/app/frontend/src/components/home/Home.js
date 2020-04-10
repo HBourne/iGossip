@@ -58,7 +58,7 @@ export class Home extends Component {
         axios.post('http://127.0.0.1:8000/user/auth/')
             .then((res) => {
                 if (res.status == 200) {
-                    cookie.save('username', res.username);
+                    cookie.save('username', res.data);
                     this.setState({
                         login: true
                     });

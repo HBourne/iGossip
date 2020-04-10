@@ -13,8 +13,9 @@ def hash_code(s, salt='cs241'):
 
 @api_view(['POST'])
 def login(request):
-    if request.session.get('is_loggedin', None):  
-        return HttpResponse(status=200)
+    if request.session.get('is_loggedin', None):
+        username = request.session['username']
+        return HttpResponse(username, status=200)
 
     if request.method == "POST":
         username = request.data.get('username')
@@ -40,6 +41,7 @@ def login(request):
     return HttpResponse(status=400)
     
 
+@api_view(['POST'])
 def logout(request):
     if not request.session.get('is_loggedin', None):
         return HttpResponse(status=200)         
@@ -49,7 +51,7 @@ def logout(request):
 
 @api_view(['POST'])
 def register(request):
-    if request.session.get('is_login', None):
+    if request.session.get('is_loggedin', None) and request.session['username'] == request.data.get('username') :
         return HttpResponse(status=200)  
 
     if request.method == 'POST':

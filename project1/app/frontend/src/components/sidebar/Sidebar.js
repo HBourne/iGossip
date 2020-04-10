@@ -23,7 +23,7 @@ export class Sidebar extends Component {
     componentDidMount() {
         try {
             fetch("api/search").then(res => {
-                if (res.status > 400) {
+                if (res.status >= 400) {
                     message.error("Course list unavailable");
                     throw "Error";
                 }
@@ -47,9 +47,8 @@ export class Sidebar extends Component {
     handleSearch = (value) => {
         try {
             fetch("api/search/?string=" + value).then(res => {
-                if (res.status > 400) {
-                    message.error("Search unavailable");
-                    throw "Error";
+                if (res.status >= 400) {
+                    throw res;
                 }
                 return res.json();
             }).then(data => {
@@ -59,7 +58,7 @@ export class Sidebar extends Component {
             })
         }
         catch (e) {
-            console.error(e);
+            message.alert(e.status);
         }
     }
 
