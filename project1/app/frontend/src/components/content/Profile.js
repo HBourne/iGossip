@@ -57,7 +57,7 @@ export class Profile extends Component {
             username: "Secret",
             email: "secret@illinois.edu",
             major: "Secret",
-            grad_year: "2020-6",
+            grad_year: "2020",
             bio: "This person is too lazy to leave a message."
         };
 
@@ -67,30 +67,26 @@ export class Profile extends Component {
         }
     }
 
+    formRef = React.createRef();
+
     componentDidMount = () => {
         axios.get('http://127.0.0.1:8000/user/getuserinfo/')
         .then((res) => {
-            this.props.form.setFieldsValue({
+            this.formRef.current.setFieldsValue({
+                username: res.headers['username'],
+                email: res.headers['email'],
+                grad_year: moment(res.headers['grad_year']),
+                major: res.headers['major'],
+                bio: res.headers['bio'],
+            })
+
+            this.setState({
                 username: res.headers['username'],
                 email: res.headers['email'],
                 grad_year: res.headers['grad_year'],
                 major: res.headers['major'],
                 bio: res.headers['bio'],
-          })
-
-            // this.setState({
-            //     username: res.headers['username'],
-            //     email: res.headers['email'],
-            //     grad_year: res.headers['grad_year'],
-            //     major: res.headers['major'],
-            //     bio: res.headers['bio'],
-            // })
-            // console.log(this.state.username);
-            // this.state.username = res.headers['username'];
-            // this.state.email = res.headers['email'];
-            // this.state.grad_year = res.headers['grad_year'];
-            // this.state.major = res.headers['major'];
-            // this.state.bio = res.headers['bio'];
+            })
         })
         .catch((err) => {
             console.log(err);
@@ -122,23 +118,29 @@ export class Profile extends Component {
         this.setState({major: value});
     }
 
-    bioDataHandler = (value) => {
-        this.setState({bio: value});
+    bioDataHandler = (e) => {
+        this.setState({bio: e.target.value});
+    }
+
+    emailDataHandler = (e) => {
+        this.setState({email: e.target.value});
     }
 
     render() {
         return (
-        <div className='profile'>
-            <div className='profile_head'>
-                <PageHeader
-                    title='Edit your profile'
-                />
-            </div>
-            <div className='profile_body'>
+            <div className='profile'>
+                <div className='profile_head'>
+                    <PageHeader
+                        title='Public Profile'
+                    />
+                </div>
+
+                <div className="profile_body">
                 <Form
                     {...formItemLayout}
                     name="update"
-                    onFinish={this.update}>
+                    onFinish={this.update}
+                    ref={this.formRef}>
 
                     <Form.Item
                         name="username"
@@ -174,7 +176,7 @@ export class Profile extends Component {
                             />
                     </Form.Item>  
                     
-                    <Form.Item
+                    {/* <Form.Item
                         name="grad_year"
                         label="Graduate Year"
                         rules={[
@@ -187,10 +189,8 @@ export class Profile extends Component {
                         <DatePicker picker="year" 
                             style={{width: '100%'}} 
                             onChange={this.gradDataHandler}
-                            // defaultValue={moment(this.state.grad_year, 'YYYY-MM')}    
-                            value={moment(this.state.grad_year, 'YYYY-MM')}   
                             />
-                    </Form.Item>
+                    </Form.Item> */}
 
                     <Form.Item
                         name="major"
@@ -223,8 +223,8 @@ export class Profile extends Component {
                         </Button>
                     </Form.Item>             
                 </Form>
+                </div>
             </div>
-        </div>
         )
     }
 }

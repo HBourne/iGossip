@@ -91,7 +91,7 @@ def register(request):
 def update_user_info(request):
     if request.session.get('is_loggedin', None):
         if request.method == 'POST':    
-            username = request.data.get('username')
+            username = request.session['username']
             email = request.data.get('email')
             grad_year = request.data.get('grad_year')
             major = request.data.get('major')
