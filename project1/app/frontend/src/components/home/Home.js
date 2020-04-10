@@ -55,6 +55,13 @@ export class Home extends Component {
         })
     }
 
+    favoritesCallback = (item, newCurrent) => {
+        this.setState({
+            course: item,
+            current: newCurrent
+        })
+    }
+
     componentDidMount() {
         axios.post('http://127.0.0.1:8000/user/auth/')
             .then((res) => {
@@ -99,7 +106,7 @@ export class Home extends Component {
                             }
                             {
                                 this.state.current == 'favorites' &&
-                                <Favorites></Favorites>
+                                <Favorites parentCallback={this.favoritesCallback}></Favorites>
                             }
                         </div>
                     </div>

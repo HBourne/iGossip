@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Layout, message } from 'antd';
 import './navigator.less';
+import { Menu, Layout, message } from 'antd';
 import 'antd/dist/antd.css';
 import { BankOutlined, LoginOutlined, LogoutOutlined, HeartOutlined, DatabaseOutlined } from '@ant-design/icons';
 import axios from 'axios';
