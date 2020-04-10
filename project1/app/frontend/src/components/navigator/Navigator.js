@@ -17,7 +17,7 @@ export class Navigator extends Component {
         super(props);
 
         this.state = {
-            current: 'home',
+            current: 'default',
             displaylogin: !this.props.login
         };
     }
@@ -84,6 +84,12 @@ export class Navigator extends Component {
         if (this.props.login != prevProps.login) {
             this.setState({
                 displaylogin: !this.props.login
+            })
+        }
+
+        if (this.props.current != prevProps.current) {
+            this.setState({
+                current: this.props.current
             })
         }
     }

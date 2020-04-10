@@ -5,6 +5,7 @@ import { Professor } from '../content/Professor';
 import { Course } from '../content/Course';
 // import { Welcome } from '../content/Welcome';
 import { Profile } from '../content/Profile';
+import { Favorites } from '../content/Favorites';
 import { Navigator } from '../navigator/Navigator'
 import { DefaultContent } from '../content/DefaultContent'
 import { setRawCookie } from "react-cookies";
@@ -71,7 +72,7 @@ export class Home extends Component {
         return (
             <div className='home'>
                 <div className='up'>
-                    <Navigator parentCallback={this.currentCallback} login={this.state.login}></Navigator>
+                    <Navigator parentCallback={this.currentCallback} login={this.state.login} current={this.state.current}></Navigator>
                 </div>
                 <div className='bottom'>
                     <div className='left'>
@@ -95,6 +96,10 @@ export class Home extends Component {
                             {
                                 this.state.current == 'profile' &&
                                 <Profile></Profile>
+                            }
+                            {
+                                this.state.current == 'favorites' &&
+                                <Favorites></Favorites>
                             }
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import './favorite.less'
+import './favorites.less'
 
 // Favorites:
 // - A collection of all the favorite courses of a user
 
-export class DefaultContent extends Component {
+export class Favorites extends Component {
     constructor(props) {
         super(props);
 
@@ -22,4 +22,4 @@ export class DefaultContent extends Component {
     }
 }
 
-export default DefaultContent;
+export default Favorites;
