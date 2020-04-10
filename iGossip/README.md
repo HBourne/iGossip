@@ -1,4 +1,4 @@
-# IGossip
+# iGossip
 **IGossip** is a social platform specifically designed for students who are interested in the courses their universities are offering. With the support of IGossip, students can have easy access to comments, average past GPA, descriptions, professor ratings and a lot more.
 
 The app is basically based on Django, React, Mysql & MongoDB and is still in progress. Also, relevant data will not be provided.
