@@ -8,9 +8,9 @@ Search
 
 Favorites
 ==================================================================================================
-/favorite/get/?u=: GET request, returns all favorite courses with username matching query parameter
-/favorite/add/: POST request, adds course to favorites, takes input JSON data {'username':___ , 'course_id':____}
-/favorite/check/: GET request, checks if username, course_id pair exists in favorites, takes input JSON data {'username':___ , 'course_id':____}
-/favorite/delete/: DELETE request, deletes favorite for a user, takes input JSON data {'username':___ , 'course_id':____}
+/favorites/get/?u=: GET request, returns all favorite courses with username matching query parameter
+/favorites/add/: POST request, adds course to favorites, takes input JSON data {'username':___ , 'course_id':____}
+/favorites/check/: GET request, checks if username, course_id pair exists in favorites, takes input JSON data {'username':___ , 'course_id':____}
+/favorites/delete/: DELETE request, deletes favorite for a user, takes input JSON data {'username':___ , 'course_id':____}
 
 ==================================================================================================
