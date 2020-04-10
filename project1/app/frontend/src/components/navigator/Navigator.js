@@ -100,8 +100,6 @@ export class Navigator extends Component {
                     <Menu.Item id='logo' disabled='true'>
                         iGossip
                     </Menu.Item>
-
-                    {/* TODO: Add login related states to modify the logo & corresponding text for login/logout */}
                     {
                         this.state.displaylogin &&
                         <Menu.Item key="login">

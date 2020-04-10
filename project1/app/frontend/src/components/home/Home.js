@@ -75,7 +75,6 @@ export class Home extends Component {
     }
 
     render() {
-        // TODO: Implement the state change to allow viewing different content on click different links
         return (
             <div className='home'>
                 <div className='up'>

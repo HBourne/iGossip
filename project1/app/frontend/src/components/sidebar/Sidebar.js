@@ -16,8 +16,6 @@ export class Sidebar extends Component {
         this.state = {
             mysql: []
         };
-
-        // TODO: Substitute this mock info with mysql fetch
     }
 
     componentDidMount() {
@@ -63,7 +61,6 @@ export class Sidebar extends Component {
 
     render() {
         return (
-            // TODO: Implement the onClick function to modify the current state so that correct content will be displayed
             <div className='sidebar'>
                 <div className='search'>
                     <Search
