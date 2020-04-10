@@ -80,9 +80,10 @@ After running the command above, you should be able to see an API interface thro
 ```
 $ npm i webpack webpack-cli
 $ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties
-$ npm i react react-dom react-router-dom
+$ npm i react react-dom react-router-dom react-cookies
 $ npm i less less-loader css-loader style-loader url-loader
 $ npm i antd
+$ npm i axios
 ```
 If you have any problem installing `antd` on MacOS, please refer to https://github.com/schnerd/d3-scale-cluster/issues/7.
 
