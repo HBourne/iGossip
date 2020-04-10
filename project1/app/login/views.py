@@ -86,3 +86,45 @@ def register(request):
         return HttpResponse(status=200)
 
     return HttpResponse(status=400)
+
+@api_view(['POST'])
+def update_user_info(request):
+    if request.session.get('is_loggedin', None):
+        if request.method == 'POST':    
+            username = request.data.get('username')
+            email = request.data.get('email')
+            grad_year = request.data.get('grad_year')
+            major = request.data.get('major')
+            bio = request.data.get('bio')
+
+            user = models.User.objects.get(username=username)
+            if email != user.email:
+                user.email = email
+            if grad_year != user.grad_year:
+                user.grad_year = grad_year
+            if major != user.major:
+                user.major = major
+            if bio != user.bio:
+                user.bio = bio
+            user.save()
+
+            return HttpResponse(status=200)
+    return HttpResponse(status=401)
+
+def get_user_info(request):
+    if request.session.get('is_loggedin', None):
+        if request.method == 'GET':
+            username = request.session['username']
+            user = models.User.objects.get(username=username)
+            response = HttpResponse(status=200)
+            response['username'] = username
+            response['email'] = user.email
+            response['major'] = user.major
+            response['grad_year'] = user.grad_year
+            response['bio'] = user.bio
+            return response
+    return HttpResponse(status=401)
+        
+
+
+            
