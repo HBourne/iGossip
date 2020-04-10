@@ -79,7 +79,8 @@ def check(request):
             if len(favorite) == 0:
                 flag = False
             return JsonResponse({
-                'favorite': flag
+                'favorite': flag,
+                'status': 200
             })
             
     else:

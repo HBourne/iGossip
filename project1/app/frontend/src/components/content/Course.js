@@ -32,20 +32,19 @@ export class Course extends Component {
             method: 'get',
             url: 'http://127.0.0.1:8000/favorites/check/',
             params: {
-                username: cookie.load('username'),
-                course_id: this.state.course.id,
+                u: cookie.load('username'),
+                cid: this.state.course.id,
             }
         })
             .then((res) => {
-                if (res.status >= 400) {
+                if (res.data.status >= 400) {
                     throw res
-                } else {
-                    this.setState({
-                        favorite: false
-                    })
                 }
+                this.setState({
+                    favorite: res.data.favorite
+                })
             })
-            .catch((err) => message.alert(err.res.status))
+            .catch((err) => console.log(err))
 
         if (cookie.load('username') !== undefined) {
             this.setState({
@@ -63,20 +62,25 @@ export class Course extends Component {
                 method: 'get',
                 url: 'http://127.0.0.1:8000/favorites/check/',
                 params: {
-                    username: cookie.load('username'),
-                    course_id: this.props.course.id,
+                    u: cookie.load('username'),
+                    cid: this.props.course.id,
                 }
             })
                 .then((res) => {
-                    if (res.status >= 400) {
+                    if (res.data.status >= 400) {
                         throw res
-                    } else {
-                        this.setState({
-                            favorite: false
-                        })
                     }
+                    this.setState({
+                        favorite: res.data.favorite
+                    })
                 })
-                .catch((err) => message.alert(err.res.status))
+                .catch((err) => console.log(err))
+
+            if (cookie.load('username') !== undefined) {
+                this.setState({
+                    login: true
+                })
+            }
         }
         if (this.props.login != prevProps.login) {
             this.setState({
