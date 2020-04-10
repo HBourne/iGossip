@@ -34,7 +34,8 @@ export class Home extends Component {
                 })
             } else {
                 this.setState({
-                    login: false
+                    login: false,
+                    current: 'home'
                 })
             }
         }
