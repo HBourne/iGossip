@@ -69,6 +69,7 @@ $ python .app/manage.py migrate
 ```
 
 If you're running your MySQL in a docker container, you might have to add a `root`@`172.17.0.1` user to your database since MySQL in this scenario will be visited as `172.17.0.1` instead of `127.0.0.1`.
+Refer to [this solution](https://github.com/docker-library/mysql/issues/275#issuecomment-330113998) if necessary.
 
 ### Step 5 - Start Backend Server
 ```
