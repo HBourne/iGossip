@@ -30,7 +30,7 @@ export class Course extends Component {
     componentDidMount() {
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/favorites/check/',
+            url: 'http://igossip.info/favorites/check/',
             params: {
                 u: cookie.load('username'),
                 cid: this.state.course.id,
@@ -60,7 +60,7 @@ export class Course extends Component {
             })
             axios({
                 method: 'get',
-                url: 'http://127.0.0.1:8000/favorites/check/',
+                url: 'http://igossip.info/favorites/check/',
                 params: {
                     u: cookie.load('username'),
                     cid: this.props.course.id,
@@ -92,7 +92,7 @@ export class Course extends Component {
 
     handleFavorite = () => {
         if (this.state.favorite) {
-            axios.delete('http://127.0.0.1:8000/favorites/delete/', {
+            axios.delete('http://igossip.info/favorites/delete/', {
                 data: {
                     username: cookie.load('username'),
                     course_id: this.state.course.id,
@@ -110,7 +110,7 @@ export class Course extends Component {
                 })
                 .catch((err) => message.alert(err.res.status))
         } else {
-            axios.post('http://127.0.0.1:8000/favorites/add/', {
+            axios.post('http://igossip.info/favorites/add/', {
                 username: cookie.load('username'),
                 course_id: this.state.course.id,
             })

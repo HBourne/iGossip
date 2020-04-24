@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 /**
  * Welcome page shown before logging in.
- * 127.0.0.1:8000/
+ * igossip.info/
  */
 
 

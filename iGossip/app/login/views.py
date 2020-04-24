@@ -14,12 +14,15 @@ def hash_code(s, salt='cs241'):
 @api_view(['POST'])
 def login(request):
     if request.session.get('is_loggedin', None):
+        print("Already")
         username = request.session['username']
         return HttpResponse(username, status=200)
 
     if request.method == "POST":
+        print("HERE")
         username = request.data.get('username')
         password = request.data.get('password')
+        print(request.data)
 
         if username and password:
             try:

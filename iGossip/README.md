@@ -46,7 +46,7 @@ Create `mysql.conf` at any place you like and add the following:
 database = the data base you'd like to use
 user = your username
 password = your password
-host = 127.0.0.1
+host = igossip.info
 port = 3306
 default-character-set = utf8
 ```
@@ -68,13 +68,13 @@ Make sure your MySQL is running well and there is such a database as indicated i
 $ python .app/manage.py migrate
 ```
 
-If you're running your MySQL in a docker container, you might have to add a `root`@`172.17.0.1` user to your database since MySQL in this scenario will be visited as `172.17.0.1` instead of `127.0.0.1`.
+If you're running your MySQL in a docker container, you might have to add a `root`@`172.17.0.1` user to your database since MySQL in this scenario will be visited as `172.17.0.1` instead of `igossip.info`.
 
 ### Step 5 - Start Backend Server
 ```
 $ python .app/manage.py runserver
 ```
-After running the command above, you should be able to see an API interface through `127.0.0.1:8000/api/test`. If so, you're done with the backend!
+After running the command above, you should be able to see an API interface through `igossip.info:8000/api/test`. If so, you're done with the backend!
 
 ### Step 6 - Install Frontend Packages
 ```
@@ -102,6 +102,6 @@ Then, run the frontend:
 ```
 $ cd .app/frontend && npm run dev
 ```
-If no error has been raised, you should now be able to see whatever you've posted to the api through `127.0.0.1:8000`.
+If no error has been raised, you should now be able to see whatever you've posted to the api through `igossip.info:8000`.
 
 Enjoy!

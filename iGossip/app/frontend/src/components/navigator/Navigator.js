@@ -50,7 +50,7 @@ export class Navigator extends Component {
         if (e.key == 'logout') {
             current = 'logout'
             if (cookie.load('username') !== undefined) {
-                axios.post('http://127.0.0.1:8000/user/quit/', {
+                axios.post('http://igossip.info/user/quit/', {
                     username: cookie.load('username'),
                 })
                     .then((res) => {
