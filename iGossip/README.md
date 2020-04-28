@@ -71,7 +71,7 @@ $ python .app/manage.py migrate
 If you're running your MySQL in a docker container, you might have to add a `root`@`172.17.0.1` user to your database since MySQL in this scenario will be visited as `172.17.0.1` instead of `127.0.0.1`.
 Refer to [this solution](https://github.com/docker-library/mysql/issues/275#issuecomment-330113998) if necessary.
 
-### Step 5 - Start Backend Server
+### Step 5 - Start Backend Server for MySQL
 ```
 $ python .app/manage.py runserver
 ```
@@ -79,6 +79,7 @@ After running the command above, you should be able to see an API interface thro
 
 ### Step 6 - Install Frontend Packages
 ```
+$ cd app/frontend
 $ npm i webpack webpack-cli
 $ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties
 $ npm i react react-dom react-router-dom react-cookies
@@ -103,6 +104,22 @@ Then, run the frontend:
 ```
 $ cd .app/frontend && npm run dev
 ```
+
+### Step 7 - Install Node Packages for MongoDB Backend
+```
+$ cd app/mongo
+$ npm i express mongoose
+```
+
+### Step 8 - Start Backend Server for MongoDB
+```
+$ cd app/mongo
+$ node index.js
+```
+Remember to start the API service for MongoDB on a different port other than the port for MySQL API. In this case, use any port except 8000. You can manually change the port you'd like your MongoDB API to run on in `index.js`.
+
+----------------------
+
 If no error has been raised, you should now be able to see whatever you've posted to the api through `127.0.0.1:8000`.
 
-Enjoy!
+#### Enjoy!
