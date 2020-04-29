@@ -43,3 +43,12 @@ app.post("/comment", (req, res, next) => {
 });
 
 // APIs for courses
+var Course = require("./course");
+
+app.get("/course", (req, res, next) => {
+    code = req.query.val
+    Course.find({hash_val:code}, (err, result) => {
+        if (err) console.log(err);
+        res.json(result)
+    })
+});
