@@ -46,8 +46,8 @@ app.post("/comment", (req, res, next) => {
 var Course = require("./course");
 
 app.get("/course", (req, res, next) => {
-    code = req.query.val
-    Course.find({hash_val:code}, (err, result) => {
+    code = req.query.val;
+    Course.find({ Hash_Val: code }, (err, result) => {
         if (err) console.log(err);
         res.json(result)
     })
