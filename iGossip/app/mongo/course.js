@@ -12,30 +12,29 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
- 
     number: {
         type: Number,
-        required = true
+        required: true
     },
     name: {
         type: String,
-        required = true
+        required: true
     },
     instructor: {
         type: String,
-        required = true
+        required: true
     },
-    hash_val:{
-        type:String,
-        required = true
+    hash_val: {
+        type: String,
+        required: true
     },
     description: {
         type: String,
-        required = true
+        required: true
     },
     gpa: {
         type: Float,
-        required = true
+        required: true
     }
 
 })
