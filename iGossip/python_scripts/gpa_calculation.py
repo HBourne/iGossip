@@ -22,13 +22,11 @@ for index, row in cs_df.iterrows():
     key = (name,instructor)
     total = row["A+"]*4.0+row["A"]*4.0+row["A-"]*3.67+row["B+"]*3.33+row["B"]*3.00+row["B-"]*2.67+row["C+"]*2.33+row["C"]*2.00+row["C-"]*1.67+row["D+"]*1.33+row["D"]*1.00+row["F"]*0
     count =row["A+"]+row["A"]+row["A-"]+row["B+"]+row["B"]+row["B-"]+row["C+"]+row["C"]+row["C-"]+row["D+"]+row["D"]+row["D-"]+row["F"]
-    yuh = 1
     if key in gpa_dict.keys():
         gpa_dict[key][0]+=total
         gpa_dict[key][1]+=count
-        gpa_dict[key][2]+=yuh
     else:
-        gpa_dict[key]=[total,count,yuh]
+        gpa_dict[key]=[total,count]
 
 
 for key in gpa_dict.keys():
