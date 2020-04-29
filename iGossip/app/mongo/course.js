@@ -27,7 +27,7 @@ const courseSchema = new mongoose.Schema({
     },
     hash_val:{
         type:String,
-        required = True
+        required = true
     },
     description: {
         type: String,
