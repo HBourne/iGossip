@@ -25,7 +25,9 @@ SECRET_KEY = 'r0@2@d9kw-+g(v!bv@of5t^$syt4s97ih%eue4!&z3^odbo@d8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
+
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'frontend',
     'login',
     'favorites',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -51,6 +54,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

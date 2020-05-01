@@ -1,5 +1,18 @@
 var express = require("express");
 var app = express();
+var cors = require('cors');
+const bodyParser = require('body-parser')
+
+// Add cors headers
+app.use(cors());
+
+// Add body parser
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+);
+app.use(bodyParser.json());
 
 // Establish connection to MongoDB
 var mongoose = require("mongoose");
@@ -30,15 +43,32 @@ app.get("/comment", (req, res, next) => {
 
 app.post("/comment", (req, res, next) => {
     const comment = new Comment({
-        user: 1,
-        content: "a"
+        user: req.body.data.user,
+        content: req.body.data.content,
+        hash_val: req.body.data.hash_val,
     });
 
-    comment.save((err, result) => {
-        if (err) res.json({
-            message: err
-        });
-        else res.sendStatus(200);
+    let exist = false;
+
+    Comment.find({ hash_val: req.body.data.hash_val, user: req.body.data.user }, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else if (result.length > 0) {
+            exist = true;
+        }
+
+        console.log(result.length);
+        if (exist == false) {
+            comment.save((err, result) => {
+                if (err) res.json({
+                    message: err
+                });
+                else res.sendStatus(200);
+            })
+        } else {
+            console.log("user: " + req.body.data.user + "trying to post comment to course " + req.body.data.hash_val + " multiple times");
+            res.sendStatus(406);
+        }
     })
 });
 

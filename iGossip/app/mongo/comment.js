@@ -10,6 +10,10 @@ const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
+    },
+    hash_val: {
+        type: String,
+        reuired: true
     }
 }, {
     timestamps: {
