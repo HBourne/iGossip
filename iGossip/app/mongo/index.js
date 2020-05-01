@@ -35,7 +35,7 @@ app.listen(3000, () => {
 var Comment = require("./comment");
 
 app.get("/comment", (req, res, next) => {
-    Comment.find({}, (err, result) => {
+    Comment.find({ hash_val: req.query.val }, (err, result) => {
         if (err) console.log(err);
         res.json(result);
     })
@@ -57,7 +57,6 @@ app.post("/comment", (req, res, next) => {
             exist = true;
         }
 
-        console.log(result.length);
         if (exist == false) {
             comment.save((err, result) => {
                 if (err) res.json({
@@ -71,6 +70,16 @@ app.post("/comment", (req, res, next) => {
         }
     })
 });
+
+app.delete("/comment", (req, res, next) => {
+    Comment.deleteMany({ hash_val: req.body.hash_val, user: req.body.user }, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.sendStatus(200);
+        }
+    })
+})
 
 // APIs for courses
 var Course = require("./course");

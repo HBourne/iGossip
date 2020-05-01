@@ -37,74 +37,7 @@ export class Course extends Component {
             favorite: false,
             course: this.props.course,
             login: false,
-            comments: [
-                {
-                    actions: [<span>Delete</span>], // hidden if not the author
-                    author: 'Apple Apple',
-                    content: (
-                        <p>
-                            Hello world,
-                        </p>
-                    ),
-                    datetime: (
-                        <Tooltip
-                            title={moment()
-                                .subtract(1, 'days')
-                                .format('YYYY-MM-DD')}
-                        >
-                            <span>
-                                {moment()
-                                    .subtract(1, 'days')
-                                    .fromNow()}
-                            </span>
-                        </Tooltip>
-                    ),
-                },
-                {
-                    actions: [<span>Delete</span>],
-                    author: 'Pigpig',
-                    content: (
-                        <p>
-                            This is the best course I have ever taken.
-                        </p>
-                    ),
-                    datetime: (
-                        <Tooltip
-                            title={moment()
-                                .subtract(4, 'days')
-                                .format('YYYY-MM-DD')}
-                        >
-                            <span>
-                                {moment()
-                                    .subtract(1, 'days')
-                                    .fromNow()}
-                            </span>
-                        </Tooltip>
-                    ),
-                },
-                {
-                    actions: [<span>Delete</span>],
-                    author: 'CCCCC',
-                    content: (
-                        <p>
-                            HAHAHAHHAHAHAHA
-                        </p>
-                    ),
-                    datetime: (
-                        <Tooltip
-                            title={moment()
-                                .subtract(1, 'days')
-                                .format('YYYY-MM-DD')}
-                        >
-                            <span>
-                                {moment()
-                                    .subtract(3, 'days')
-                                    .fromNow()}
-                            </span>
-                        </Tooltip>
-                    ),
-                }
-            ],
+            comments: [],
             submitting: false,
             value: '',
         };
@@ -137,24 +70,10 @@ export class Course extends Component {
         }
 
         // fetch course description
-        try {
-            fetch('http://127.0.0.1:3000/course?val=' + this.props.course.hash_val.replace(/'/g, "")).then(res => {
-                if (res.status >= 400) {
-                    message.error("Course info unavailable");
-                    throw "Error";
-                }
-                return res.json();
-            }).then(mongo => {
-                this.setState({
-                    mongo: mongo[0]
-                })
-            })
-        }
-        catch (e) {
-            console.error(e);
-        }
+        this.fetchDescription();
 
-        // fetch comments to the course       
+        // fetch comments
+        this.fetchComment();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -188,22 +107,10 @@ export class Course extends Component {
             }
 
             // fetch course description
-            try {
-                fetch('http://127.0.0.1:3000/course?val=' + this.props.course.hash_val.replace(/'/g, "")).then(res => {
-                    if (res.status >= 400) {
-                        message.error("Course info unavailable");
-                        throw "Error";
-                    }
-                    return res.json();
-                }).then(mongo => {
-                    this.setState({
-                        mongo: mongo[0]
-                    })
-                })
-            }
-            catch (e) {
-                console.error(e);
-            }
+            this.fetchDescription();
+
+            // fetch comments to the course
+            this.fetchComment();
         }
 
         if (this.props.login != prevProps.login) {
@@ -281,6 +188,7 @@ export class Course extends Component {
                     this.setState({
                         value: null
                     })
+                    this.fetchComment();
                 }
             })
             .catch((err) => {
@@ -294,11 +202,98 @@ export class Course extends Component {
         })
     };
 
+    handleDelete = () => {
+        axios.delete('http://127.0.0.1:3000/comment', {
+            data: {
+                user: cookie.load('username'),
+                hash_val: this.props.course.hash_val.replace(/'/g, ""),
+            }
+        })
+            .then(res => {
+                if (res.status >= 400) {
+                    message.error(res.status)
+                    throw res
+                }
+
+                if (res.status == 200) {
+                    message.success("Successfully deleted comment")
+                    this.fetchComment();
+                }
+            })
+            .catch((err) => {
+                if (err.response.status == 406) {
+                    message.error("Cannot comment a same course twice");
+                }
+            })
+    }
+
     handleChange = e => {
         this.setState({
             value: e.target.value,
         });
     };
+
+    fetchComment = () => {
+        // fetch comments to the course
+        axios.get('http://127.0.0.1:3000/comment?val=' + this.props.course.hash_val.replace(/'/g, ""))
+            .then((res) => {
+                if (res.status >= 400) {
+                    message.error(res.status)
+                    throw res
+                }
+                console.log(res.data);
+                return res.data;
+            })
+            .then(data => {
+                console.log(data);
+                let comments = [];
+                for (let i = data.length - 1; i >= 0; i--) {
+                    comments.push({
+                        actions: data[i].user == cookie.load('username') ? [<Button onClick={this.handleDelete}>Delete</Button>] : null,
+                        author: data[i].user,
+                        content: (
+                            <p>
+                                {data[i].content},
+                            </p>
+                        ),
+                        datetime: (
+                            <Tooltip
+                                title={moment(data[i].created_at).fromNow()}
+                            >
+                                <span>
+                                    {moment(data[i].created_at).fromNow()}
+                                </span>
+                            </Tooltip>
+                        ),
+                    })
+                }
+                this.setState({
+                    comments: comments
+                })
+            })
+            .catch((err) => {
+                message.error("Error fetching comments");
+            })
+    }
+
+    fetchDescription = () => {
+        try {
+            fetch('http://127.0.0.1:3000/course?val=' + this.props.course.hash_val.replace(/'/g, "")).then(res => {
+                if (res.status >= 400) {
+                    message.error("Course info unavailable");
+                    throw "Error";
+                }
+                return res.json();
+            }).then(mongo => {
+                this.setState({
+                    mongo: mongo[0]
+                })
+            })
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
 
     render() {
         return (
