@@ -326,6 +326,22 @@ export class Course extends Component {
         }
     }
 
+    handleSubmit = () => {
+        if (!this.state.value) {
+          return;
+        }
+    
+        this.setState({
+          submitting: true,
+        });
+    };
+
+    handleChange = e => {
+        this.setState({
+          value: e.target.value,
+        });
+      };
+
     render() {
         return (
             <div className='course'>
