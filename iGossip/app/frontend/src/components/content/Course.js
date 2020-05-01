@@ -232,7 +232,6 @@ export class Course extends Component {
     }
 
     handleChange = e => {
-        console.log(e.target.value);
         this.setState({
             value: e.target.value,
         });
@@ -249,7 +248,6 @@ export class Course extends Component {
                 return res.data;
             })
             .then(data => {
-                console.log(data);
                 let comments = [];
                 for (let i = data.length - 1; i >= 0; i--) {
                     comments.push({
