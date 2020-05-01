@@ -139,22 +139,22 @@ export class Course extends Component {
         console.log(this.state.course);
 
         // fetch course description
-        try {
-            fetch("/course?val=" + this.state.hash_val).then(res => {
-                if (res.status >= 400) {
-                    message.error("Course info unavailable");
-                    throw "Error";
-                }
-                return res.json();
-            }).then(data => {
-                this.setState({
-                    description: description,
-                })
-            })
-        }
-        catch (e) {
-            console.error(e);
-        }
+        // try {
+        //     fetch("/course?val=" + this.state.hash_val).then(res => {
+        //         if (res.status >= 400) {
+        //             message.error("Course info unavailable");
+        //             throw "Error";
+        //         }
+        //         return res.json();
+        //     }).then(data => {
+        //         this.setState({
+        //             description: description,
+        //         })
+        //     })
+        // }
+        // catch (e) {
+        //     console.error(e);
+        // }
 
         // fetch comments to the course       
     }
