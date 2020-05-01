@@ -175,6 +175,10 @@ export class Course extends Component {
                 user: cookie.load('username'),
                 content: this.state.value,
                 hash_val: this.props.course.hash_val.replace(/'/g, ""),
+                course_name: this.props.course.name.replace(/'/g, ""),
+                course_number: this.props.course.number,
+                course_subject: this.props.course.subject.replace(/'/g, ""),
+                instructor: this.props.course.instructor.replace(/'/g, "")
             }
         })
             .then((res) => {
@@ -228,6 +232,7 @@ export class Course extends Component {
     }
 
     handleChange = e => {
+        console.log(e.target.value);
         this.setState({
             value: e.target.value,
         });
@@ -241,7 +246,6 @@ export class Course extends Component {
                     message.error(res.status)
                     throw res
                 }
-                console.log(res.data);
                 return res.data;
             })
             .then(data => {
@@ -253,7 +257,7 @@ export class Course extends Component {
                         author: data[i].user,
                         content: (
                             <p>
-                                {data[i].content},
+                                {data[i].content}
                             </p>
                         ),
                         datetime: (

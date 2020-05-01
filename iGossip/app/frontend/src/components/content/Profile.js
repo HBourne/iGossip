@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './profile.less'
-import { Form, Input, Button, PageHeader, Select, DatePicker } from 'antd';
+import { Form, Input, Button, PageHeader, Select, DatePicker, message } from 'antd';
 // import { Input, PageHeader } from 'antd';
 import 'antd/dist/antd.css';
 import moment from 'moment';
@@ -103,10 +103,10 @@ export class Profile extends Component {
         })
             .then((res) => {
                 if (res.status == 200)
-                    alert('Profile successfully updated!');
+                    message.success('Profile successfully updated!');
             })
             .catch((err) => {
-                alert('Your profile failed to update...');
+                message.error('Your profile failed to update...');
             })
     }
 

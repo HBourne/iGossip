@@ -35,17 +35,22 @@ app.listen(3000, () => {
 var Comment = require("./comment");
 
 app.get("/comment", (req, res, next) => {
-    Comment.find({ hash_val: req.query.val }, (err, result) => {
+    Comment.find({ hash_val: req.query.val ? req.query.val : { $exists: true }, user: req.query.user ? req.query.user : { $exists: true } }, (err, result) => {
         if (err) console.log(err);
         res.json(result);
     })
 });
 
 app.post("/comment", (req, res, next) => {
+    console.log(req.body.data.content);
     const comment = new Comment({
         user: req.body.data.user,
         content: req.body.data.content,
         hash_val: req.body.data.hash_val,
+        course_number: req.body.data.course_number,
+        course_subject: req.body.data.course_subject,
+        course_name: req.body.data.course_name,
+        instructor: req.body.data.instructor
     });
 
     let exist = false;
@@ -65,7 +70,7 @@ app.post("/comment", (req, res, next) => {
                 else res.sendStatus(200);
             })
         } else {
-            console.log("user: " + req.body.data.user + "trying to post comment to course " + req.body.data.hash_val + " multiple times");
+            console.log("user: " + req.body.data.user + " trying to post comment to course " + req.body.data.hash_val + " multiple times");
             res.sendStatus(406);
         }
     })

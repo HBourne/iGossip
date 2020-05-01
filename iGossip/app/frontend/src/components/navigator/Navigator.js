@@ -36,7 +36,7 @@ export class Navigator extends Component {
             this.props.parentCallback(current);
         }
         if (e.key == 'comments') {
-            current = 'comment';
+            current = 'comments';
             this.props.parentCallback(current);
         }
         if (e.key == 'favorites') {

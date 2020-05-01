@@ -6,9 +6,9 @@ import { Course } from '../content/Course';
 import { Welcome } from './Welcome';
 import { Profile } from '../content/Profile';
 import { Favorites } from '../content/Favorites';
-import { Navigator } from '../navigator/Navigator'
-import { DefaultContent } from '../content/DefaultContent'
-import { setRawCookie } from "react-cookies";
+import { Navigator } from '../navigator/Navigator';
+import { Comments } from '../content/Comments';
+// import { DefaultContent } from '../content/DefaultContent'
 import cookie from 'react-cookies';
 import axios from 'axios';
 
@@ -62,6 +62,12 @@ export class Home extends Component {
         })
     }
 
+    commentsCallback = (item, newCurrent) => {
+        this.setState({
+            current: newCurrent
+        })
+    }
+
     componentDidMount() {
         axios.post('http://127.0.0.1:8000/user/auth/')
             .then((res) => {
@@ -106,6 +112,10 @@ export class Home extends Component {
                             {
                                 this.state.current == 'favorites' &&
                                 <Favorites parentCallback={this.favoritesCallback}></Favorites>
+                            }
+                            {
+                                this.state.current == 'comments' &&
+                                <Comments parentCallback={this.commentsCallback}></Comments>
                             }
                         </div>
                     </div>

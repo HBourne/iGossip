@@ -14,6 +14,22 @@ const commentSchema = new mongoose.Schema({
     hash_val: {
         type: String,
         reuired: true
+    },
+    course_name: {
+        type: String,
+        required: true
+    },
+    course_number: {
+        type: String,
+        required: true
+    },
+    course_subject: {
+        type: String,
+        required: true
+    },
+    instructor: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: {
