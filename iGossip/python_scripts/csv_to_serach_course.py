@@ -8,7 +8,7 @@ def course_csv_to_mysql(host, user, password, db_name):
     This function load a csv file to MySQL table according to
     the load_sql statement.
     '''
-    filepath = "/path/to/your/course_csv"
+    filepath = "./courses.csv"
 
     try:
         con = pymysql.connect(host=host,
@@ -51,4 +51,4 @@ def course_csv_to_mysql(host, user, password, db_name):
 
 if __name__ == "__main__":
     # Call the function here with host, user, pwd, db_name
-    course_csv_to_mysql("host",'user',"pwd", "db")
+    course_csv_to_mysql("127.0.0.1","root","cs411", "test")
