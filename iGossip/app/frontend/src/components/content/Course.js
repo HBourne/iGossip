@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
 import axios from 'axios';
-import { message, Comment, Tooltip, List, Form, Input, Button } from 'antd';
+import { message, Comment, Tooltip, List, Form, Input, Button, Card} from 'antd';
 import moment from 'moment';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
@@ -29,6 +29,26 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </div>
 );
 
+const CommentList = ({ comments }) => (
+    <List
+        className="comment-list"
+        itemLayout="horizontal"
+        dataSource={comments}
+        renderItem={item => (
+            <li>
+                <Card style={{marginTop: '8px'}}>
+                    <Comment
+                        actions={item.actions}
+                        author={item.author}
+                        content={item.content}
+                        datetime={item.datetime}
+                    />
+                </Card>
+            </li>
+        )}
+    />
+)
+
 export class Course extends Component {
     constructor(props) {
         super(props);
@@ -40,6 +60,7 @@ export class Course extends Component {
             comments: [],
             submitting: false,
             value: '',
+            current: 'read', // read / write 
         };
     }
 
@@ -119,6 +140,13 @@ export class Course extends Component {
                 username: cookie.load('username')
             })
         }
+    }
+
+    switchCurrent = () => {
+        if (this.state.current == 'read')
+            this.setState({current: 'write'});
+        else
+            this.setState({current: 'read'});
     }
 
     handleFavorite = () => {
@@ -270,7 +298,8 @@ export class Course extends Component {
                     })
                 }
                 this.setState({
-                    comments: comments
+                    comments: comments,
+                    current: 'read'
                 })
             })
             .catch((err) => {
@@ -300,78 +329,87 @@ export class Course extends Component {
     render() {
         return (
             <div className='course'>
-                <div className='title'>
-                    <div className='name_favorite'>
-                        {
-                            this.state.login &&
-                            <div className='favorite'>
-                                <a onClick={this.handleFavorite}>
-                                    {
-                                        !this.state.favorite &&
-                                        <HeartOutlined />
-                                    }
-                                    {
-                                        this.state.favorite &&
-                                        <HeartTwoTone twoToneColor="#eb2f96" />
-                                    }
-                                </a>
-                            </div>
-                        }
+                <div className='left-col'>
+                    <div className='title'>
+                        <div className='name_favorite'>
+                            {
+                                this.state.login &&
+                                <div className='favorite'>
+                                    <a onClick={this.handleFavorite}>
+                                        {
+                                            !this.state.favorite &&
+                                            <HeartOutlined />
+                                        }
+                                        {
+                                            this.state.favorite &&
+                                            <HeartTwoTone twoToneColor="#eb2f96" />
+                                        }
+                                    </a>
+                                </div>
+                            }
+                            {
+                                this.state.course &&
+                                <div className='name'>
+                                    <b>{this.state.course.subject.replace(/\'/g, '') + this.state.course.number}</b> {" - " + this.state.course.name.replace(/\'/g, '')}
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div className="info">
                         {
                             this.state.course &&
-                            <div className='name'>
-                                {this.state.course.subject.replace(/\'/g, '') + this.state.course.number + " - " + this.state.course.name.replace(/\'/g, '')}
+                            <div className='instructor'>
+                                <b>Instructed by:</b> {this.state.course.instructor.replace(/\'/g, '')}
                             </div>
                         }
+                        {
+                            this.state.mongo &&
+                            <div className='gpa'>
+                                <b>Average GPA: </b>{this.state.mongo.GPA}
+                            </div>                    
+                        }
+                        {
+                            this.state.mongo &&
+                            <div className='description'>
+                                <b>Course Description:</b>
+                                <p>{this.state.mongo.Description}</p>
+                            </div>
+                        }
+                    </div>               
+
+                    <div className='body'>
+                        <div className='comment'>                            
+                            {
+                                this.state.current == "read" &&
+                                <b>What people are saying:</b> &&
+                                <CommentList
+                                    comments={this.state.comments}
+                                />
+                            }
+
+                            {
+                                this.state.current == "write" &&
+                                this.state.login &&
+                                <Comment
+                                    content={
+                                        <Editor
+                                            onChange={this.handleChange}
+                                            onSubmit={this.handleSubmit}
+                                            submitting={this.state.submitting}
+                                            value={this.state.value}
+                                        />
+                                    }
+                                />
+                            }
+                        </div>
                     </div>
                 </div>
-                {
-                    this.state.course &&
-                    <div className='instructor'>
-                        Instructed by: {this.state.course.instructor.replace(/\'/g, '')}
-                    </div>
-                }
-                {
-                    this.state.mongo &&
-                    <div className='description'>
-                        Course Description:
-                        <p>{this.state.mongo.Description}</p>
-                    </div>
-                }
 
-                <div className='body'>
-                    <div className='comment'>
-                        {
-                            this.state.login &&
-                            <Comment
-                                content={
-                                    <Editor
-                                        onChange={this.handleChange}
-                                        onSubmit={this.handleSubmit}
-                                        submitting={this.state.submitting}
-                                        value={this.state.value}
-                                    />
-                                }
-                            />
-                        }
-
-                        What people are talking about: <br></br>
-                        <List
-                            className="comment-list"
-                            itemLayout="horizontal"
-                            dataSource={this.state.comments}
-                            renderItem={item => (
-                                <li>
-                                    <Comment
-                                        actions={item.actions}
-                                        author={item.author}
-                                        content={item.content}
-                                        datetime={item.datetime}
-                                    />
-                                </li>
-                            )}
-                        />
-                    </div>
+                <div className="right-col">
+                    <Button type="primary" onClick={this.switchCurrent}>
+                        {(this.state.current=='read')? 'Add a comment': 'Go back'}
+                    </Button>
                 </div>
             </div>
         )

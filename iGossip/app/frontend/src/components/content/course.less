@@ -1,7 +1,7 @@
 .course {
     display: flex;
     overflow: scroll;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 
     .title {
@@ -26,26 +26,38 @@
         }
     }
 
-    .description {
-        font-size: 12pt;
-        padding: 5pt;
-    }
-
-    .instructor {
-        font-size: 12pt;
-        padding: 5pt;
-    }
-
-    .body {
-        display: flex;
-        flex-direction: row;
-        font-size: 12pt;
-        padding: 5pt;
-
-        .comment {
-            display: flex;
-            flex-direction: column;
-            width: 70%;
+    .left-col {
+        flex: 3;
+    
+        .info {
+            font-size: 12pt;
+            padding: 5pt;
+        }
+    
+        .description p{
+            font-size: 11pt;
+        }
+    
+        .body {
+            // display: flex;
+            // flex-direction: row;
+            font-size: 12pt;
+            padding: 5pt;
+    
+            .comment {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                // width: 70%;
+            }
         }
     }
+    
+    .right-col {
+        flex: 1;
+        padding-top: 30px;
+        padding-left: 60px;
+    }
 }
+
+
