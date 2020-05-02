@@ -119,7 +119,9 @@ export class Course extends Component {
                         favorite: res.data.favorite
                     })
                 })
-                .catch((err) => message.error("Favorite info unavailable"))
+                .catch((err) => {
+                    if (this.state.login) message.error("Favorite info unavailable")
+                })
 
             if (cookie.load('username') !== undefined) {
                 this.setState({
