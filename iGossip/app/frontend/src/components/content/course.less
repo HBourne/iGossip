@@ -1,7 +1,7 @@
 .course {
     display: flex;
     overflow: scroll;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
 
     .title {
@@ -15,9 +15,15 @@
             display: flex;
             flex-direction: row;
             min-width: 33%;
+            align-items: center;
 
             .favorite {
                 padding-right: 20px;
+            }
+
+            .comment_button {
+                right: 5%;
+                position: absolute;
             }
         }
 
@@ -25,39 +31,36 @@
             width: 30%;
         }
     }
+    
+    .info {
+        font-size: 12pt;
+        padding: 5pt;
+    }
 
-    .left-col {
-        flex: 3;
-    
-        .info {
-            font-size: 12pt;
-            padding: 5pt;
-        }
-    
-        .description p{
-            font-size: 11pt;
-        }
-    
-        .body {
-            // display: flex;
-            // flex-direction: row;
-            font-size: 12pt;
-            padding: 5pt;
-    
-            .comment {
-                margin-top: 10px;
-                display: flex;
-                flex-direction: column;
-                // width: 70%;
-            }
+    .description p{
+        font-size: 11pt;
+    }
+
+    .body {
+        display: flex;
+        flex-direction: column;
+        font-size: 12pt;
+        padding: 5pt;
+
+        .comment {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
         }
     }
     
-    .right-col {
-        flex: 1;
-        padding-top: 30px;
-        padding-left: 60px;
-    }
+    // .right-col {
+    //     display: flex;
+    //     justify-content: center;
+    //     width: 15%;
+    //     padding-top: 30px;
+    //     // padding-left: 60px;
+    // }
 }
 
 

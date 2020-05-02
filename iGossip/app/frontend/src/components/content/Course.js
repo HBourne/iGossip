@@ -333,87 +333,85 @@ export class Course extends Component {
     render() {
         return (
             <div className='course'>
-                <div className='left-col'>
-                    <div className='title'>
-                        <div className='name_favorite'>
-                            {
-                                this.state.login &&
-                                <div className='favorite'>
-                                    <a onClick={this.handleFavorite}>
-                                        {
-                                            !this.state.favorite &&
-                                            <HeartOutlined />
-                                        }
-                                        {
-                                            this.state.favorite &&
-                                            <HeartTwoTone twoToneColor="#eb2f96" />
-                                        }
-                                    </a>
-                                </div>
-                            }
-                            {
-                                this.state.course &&
-                                <div className='name'>
-                                    <b>{this.state.course.subject.replace(/\'/g, '') + this.state.course.number}</b> {" - " + this.state.course.name.replace(/\'/g, '')}
-                                </div>
-                            }
-                        </div>
-                    </div>
-
-                    <div className="info">
+                <div className='title'>
+                    <div className='name_favorite'>
+                        {
+                            this.state.login &&
+                            <div className='favorite'>
+                                <a onClick={this.handleFavorite}>
+                                    {
+                                        !this.state.favorite &&
+                                        <HeartOutlined />
+                                    }
+                                    {
+                                        this.state.favorite &&
+                                        <HeartTwoTone twoToneColor="#eb2f96" />
+                                    }
+                                </a>
+                            </div>
+                        }
                         {
                             this.state.course &&
-                            <div className='instructor'>
-                                <b>Instructed by:</b> {this.state.course.instructor.replace(/\'/g, '')}
+                            <div className='name'>
+                                <b>{this.state.course.subject.replace(/\'/g, '') + this.state.course.number}</b> {" - " + this.state.course.name.replace(/\'/g, '')}
                             </div>
                         }
                         {
-                            this.state.mongo &&
-                            <div className='gpa'>
-                                <b>Average GPA: </b>{this.state.mongo.GPA}
-                            </div>
+                            this.state.login &&
+                            <Button className="comment_button" type="primary" onClick={this.switchCurrent}>
+                                {(this.state.current == 'read') ? 'Add  Comment' : 'Read Comments'}
+                            </Button>
                         }
-                        {
-                            this.state.mongo &&
-                            <div className='description'>
-                                <b>Course Description:</b>
-                                <p>{this.state.mongo.Description}</p>
-                            </div>
-                        }
-                    </div>
-
-                    <div className='body'>
-                        <div className='comment'>
-                            {
-                                this.state.current == "read" &&
-                                <b>What people are saying:</b> &&
-                                <CommentList
-                                    comments={this.state.comments}
-                                />
-                            }
-
-                            {
-                                this.state.current == "write" &&
-                                this.state.login &&
-                                <Comment
-                                    content={
-                                        <Editor
-                                            onChange={this.handleChange}
-                                            onSubmit={this.handleSubmit}
-                                            submitting={this.state.submitting}
-                                            value={this.state.value}
-                                        />
-                                    }
-                                />
-                            }
-                        </div>
                     </div>
                 </div>
 
-                <div className="right-col">
-                    <Button type="primary" onClick={this.switchCurrent}>
-                        {(this.state.current == 'read') ? 'Add a comment' : 'Go back'}
-                    </Button>
+                <div className="info">
+                    {
+                        this.state.course &&
+                        <div className='instructor'>
+                            <b>Instructed by:</b> {this.state.course.instructor.replace(/\'/g, '')}
+                        </div>
+                    }
+                    {
+                        this.state.mongo &&
+                        <div className='gpa'>
+                            <b>Average GPA: </b>{this.state.mongo.GPA}
+                        </div>
+                    }
+                    {
+                        this.state.mongo &&
+                        <div className='description'>
+                            <b>Course Description:</b>
+                            <p>{this.state.mongo.Description}</p>
+                        </div>
+                    }
+                </div>
+
+                <div className='body'>
+                    <div className='comment'>
+                        {
+                            this.state.current == "read" &&
+                            <b>What people are saying:</b> &&
+                            <CommentList
+                                comments={this.state.comments}
+                            />
+                        }
+
+                        {
+                            this.state.current == "write" &&
+                            this.state.login &&
+                            <Comment
+                                content={
+                                    <Editor
+                                        onChange={this.handleChange}
+                                        onSubmit={this.handleSubmit}
+                                        submitting={this.state.submitting}
+                                        value={this.state.value}
+                                    />
+                                }
+                            />
+                        }
+                    </div>
                 </div>
             </div>
         )
