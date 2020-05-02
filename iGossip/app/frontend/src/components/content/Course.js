@@ -367,6 +367,8 @@ export class Course extends Component {
                     </div>
                 </div>
 
+                <hr className="separator" />
+
                 <div className="info">
                     {
                         this.state.course &&

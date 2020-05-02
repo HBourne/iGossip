@@ -17,8 +17,6 @@ class CourseListGeneralSearch(generics.ListCreateAPIView):
             if self.request.method == 'GET':
                   queryset = Course.objects.all()
                   query = self.request.GET.get('string', None)
-                  print(query[2:])
-                  print(query[:2])
                   if query is None:
                         sql_query = "SELECT * FROM search_course"
                         return Course.objects.raw(sql_query)
