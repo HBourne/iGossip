@@ -17,12 +17,18 @@ class CourseListGeneralSearch(generics.ListCreateAPIView):
             if self.request.method == 'GET':
                   queryset = Course.objects.all()
                   query = self.request.GET.get('string', None)
+                  print(query[2:])
+                  print(query[:2])
                   if query is None:
                         sql_query = "SELECT * FROM search_course"
                         return Course.objects.raw(sql_query)
                   if query.isdigit():
                         sql_query = "SELECT * FROM search_course WHERE number = %s"
                         courses = Course.objects.raw(sql_query,[query])
+                        return courses
+                  if len(query) == 5 and query[2:].isdigit():
+                        sql_query = "SELECT * FROM search_course WHERE number = %s AND subject = '\'%s\''"
+                        courses = Course.objects.raw(sql_query,[query[2:], query[:2]])
                         return courses
 
                   query = '%'+query+'%'
