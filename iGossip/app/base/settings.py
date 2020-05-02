@@ -27,7 +27,7 @@ DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['igossip.info','108.174.196.84']
 
 
 # Application definition

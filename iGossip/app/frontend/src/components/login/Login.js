@@ -38,7 +38,8 @@ class LoginForm extends Component {
     }
 
     login() {
-        axios.post('http://127.0.0.1:8000/user/auth/', {
+        console.log(this.state.username);
+        axios.post('http://igossip.info/user/auth/', {
             username: this.state.username,
             password: this.state.password,
         })

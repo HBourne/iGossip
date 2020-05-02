@@ -70,7 +70,7 @@ export class Profile extends Component {
     formRef = React.createRef();
 
     componentDidMount = () => {
-        axios.get('http://127.0.0.1:8000/user/getuserinfo/')
+        axios.get('http://igossip.info/user/getuserinfo/')
             .then((res) => {
                 this.formRef.current.setFieldsValue({
                     username: res.headers['username'],
@@ -94,7 +94,7 @@ export class Profile extends Component {
     }
 
     update = () => {
-        axios.post('http://127.0.0.1:8000/user/updateuserinfo/', {
+        axios.post('http://igossip.info/user/updateuserinfo/', {
             username: this.state.username,
             email: this.state.email,
             grad_year: this.state.grad_year,

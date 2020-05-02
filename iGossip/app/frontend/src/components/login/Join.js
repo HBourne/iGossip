@@ -76,7 +76,7 @@ class JoinForm extends Component {
     }
 
     signUp = () => {
-        axios.post('http://127.0.0.1:8000/user/join/', {
+        axios.post('http://igossip.info/user/join/', {
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,

@@ -68,7 +68,7 @@ export class Course extends Component {
         // check whether the course is in the user's favorite list
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/favorites/check/',
+            url: 'http://igossip.info/favorites/check/',
             params: {
                 u: cookie.load('username'),
                 cid: this.state.course.id,
@@ -105,7 +105,7 @@ export class Course extends Component {
             })
             axios({
                 method: 'get',
-                url: 'http://127.0.0.1:8000/favorites/check/',
+                url: 'http://igossip.info/favorites/check/',
                 params: {
                     u: cookie.load('username'),
                     cid: this.props.course.id,
@@ -151,7 +151,7 @@ export class Course extends Component {
 
     handleFavorite = () => {
         if (this.state.favorite) {
-            axios.delete('http://127.0.0.1:8000/favorites/delete/', {
+            axios.delete('http://igossip.info/favorites/delete/', {
                 data: {
                     username: cookie.load('username'),
                     course_id: this.state.course.id,
@@ -170,7 +170,7 @@ export class Course extends Component {
                 })
                 .catch((err) => message.error(err.response.status))
         } else {
-            axios.post('http://127.0.0.1:8000/favorites/add/', {
+            axios.post('http://igossip.info/favorites/add/', {
                 username: cookie.load('username'),
                 course_id: this.state.course.id,
             })
@@ -202,7 +202,7 @@ export class Course extends Component {
             submitting: true,
         });
 
-        axios.post('http://127.0.0.1:3000/comment', {
+        axios.post('http://igossip.info:3000/comment', {
             data: {
                 user: cookie.load('username'),
                 content: this.state.value,
@@ -239,7 +239,7 @@ export class Course extends Component {
     };
 
     handleDelete = () => {
-        axios.delete('http://127.0.0.1:3000/comment', {
+        axios.delete('http://igossip.info:3000/comment', {
             data: {
                 user: cookie.load('username'),
                 hash_val: this.props.course.hash_val.replace(/'/g, ""),
@@ -271,7 +271,7 @@ export class Course extends Component {
 
     fetchComment = () => {
         // fetch comments to the course
-        axios.get('http://127.0.0.1:3000/comment?val=' + this.props.course.hash_val.replace(/'/g, ""))
+        axios.get('http://igossip.info:3000/comment?val=' + this.props.course.hash_val.replace(/'/g, ""))
             .then((res) => {
                 if (res.status >= 400) {
                     message.error(res.status)
@@ -313,7 +313,7 @@ export class Course extends Component {
 
     fetchDescription = () => {
         try {
-            fetch('http://127.0.0.1:3000/course?val=' + this.props.course.hash_val.replace(/'/g, "")).then(res => {
+            fetch('http://igossip.info:3000/course?val=' + this.props.course.hash_val.replace(/'/g, "")).then(res => {
                 if (res.status >= 400) {
                     message.error("Course info unavailable");
                     throw "Error";

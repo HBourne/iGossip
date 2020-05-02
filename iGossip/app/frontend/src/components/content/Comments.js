@@ -23,7 +23,7 @@ export class Comments extends Component {
     }
 
     handleDelete = (hash_val) => {
-        axios.delete('http://127.0.0.1:3000/comment', {
+        axios.delete('http://igossip.info:3000/comment', {
             data: {
                 user: cookie.load('username'),
                 hash_val: hash_val,
@@ -46,7 +46,7 @@ export class Comments extends Component {
     }
 
     fetchComment = () => {
-        axios.get('http://127.0.0.1:3000/comment?user=' + cookie.load('username'))
+        axios.get('http://igossip.info:3000/comment?user=' + cookie.load('username'))
             .then((res) => {
                 if (res.status >= 400) {
                     message.error(res.status)

@@ -50,7 +50,7 @@ export class Favorites extends Component {
     }
 
     handleDelete = (key) => {
-        axios.delete('http://127.0.0.1:8000/favorites/delete/', {
+        axios.delete('http://igossip.info/favorites/delete/', {
             data: {
                 username: cookie.load('username'),
                 course_id: this.state.course_list[key].id,
