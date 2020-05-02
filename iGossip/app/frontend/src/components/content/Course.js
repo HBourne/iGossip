@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
 import axios from 'axios';
-import { message, Comment, Tooltip, List, Form, Input, Button, Card} from 'antd';
+import { message, Comment, Tooltip, List, Form, Input, Button, Card } from 'antd';
 import moment from 'moment';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
@@ -36,7 +36,7 @@ const CommentList = ({ comments }) => (
         dataSource={comments}
         renderItem={item => (
             <li>
-                <Card style={{marginTop: '8px'}}>
+                <Card style={{ marginTop: '8px' }}>
                     <Comment
                         actions={item.actions}
                         author={item.author}
@@ -144,9 +144,9 @@ export class Course extends Component {
 
     switchCurrent = () => {
         if (this.state.current == 'read')
-            this.setState({current: 'write'});
+            this.setState({ current: 'write' });
         else
-            this.setState({current: 'read'});
+            this.setState({ current: 'read' });
     }
 
     handleFavorite = () => {
@@ -191,6 +191,10 @@ export class Course extends Component {
 
     handleSubmit = () => {
         if (!this.state.value) {
+            message.error("Cannot submit blank comment!");
+            this.setState({
+                submitting: false
+            })
             return;
         }
 
@@ -326,22 +330,6 @@ export class Course extends Component {
         }
     }
 
-    handleSubmit = () => {
-        if (!this.state.value) {
-          return;
-        }
-    
-        this.setState({
-          submitting: true,
-        });
-    };
-
-    handleChange = e => {
-        this.setState({
-          value: e.target.value,
-        });
-      };
-
     render() {
         return (
             <div className='course'>
@@ -383,7 +371,7 @@ export class Course extends Component {
                             this.state.mongo &&
                             <div className='gpa'>
                                 <b>Average GPA: </b>{this.state.mongo.GPA}
-                            </div>                    
+                            </div>
                         }
                         {
                             this.state.mongo &&
@@ -392,10 +380,10 @@ export class Course extends Component {
                                 <p>{this.state.mongo.Description}</p>
                             </div>
                         }
-                    </div>               
+                    </div>
 
                     <div className='body'>
-                        <div className='comment'>                            
+                        <div className='comment'>
                             {
                                 this.state.current == "read" &&
                                 <b>What people are saying:</b> &&
@@ -424,7 +412,7 @@ export class Course extends Component {
 
                 <div className="right-col">
                     <Button type="primary" onClick={this.switchCurrent}>
-                        {(this.state.current=='read')? 'Add a comment': 'Go back'}
+                        {(this.state.current == 'read') ? 'Add a comment' : 'Go back'}
                     </Button>
                 </div>
             </div>
